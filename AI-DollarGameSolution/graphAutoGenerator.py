@@ -1,4 +1,5 @@
 import random
+import networkx as nx
 
 ## Node class that represents a single vertex in the graph
 class Node:
@@ -25,7 +26,9 @@ class Node:
 
 ## Generate a random solvable graph.
 ## "Solvable" satisfies the equation V - E + 1 = G where sum(all nodes) >= G
+## Requirements - a valid graph must have an path between every node
 def generateGraph(gSize):
+		
 	randVal =[]
 	nodes = []
 	graph = {}
@@ -38,7 +41,7 @@ def generateGraph(gSize):
 
 	##Generate nodes and populate them with the random numbers already made.
 	for e in range(0,gSize):
-		node =(Node(e, randVal.pop(), []) 
+		node =(Node(e, randVal.pop(), [])
 		nodes.append(node)
 		graph.update(e, [])
 
