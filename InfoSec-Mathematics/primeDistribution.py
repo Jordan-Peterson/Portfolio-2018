@@ -18,7 +18,7 @@ def main(argv):
 		else:
 			sys.exit(1)
 
-			
+
 ## This algorithm is used to find the prime factorization of a number n
 ## credit to this algorithm is to geeksforgeeks
 ## url: https://www.geeksforgeeks.org/pollards-rho-algorithm-prime-factorization/
@@ -48,7 +48,10 @@ def PollardRho(n):
 		y = (pow(y, 2, n) + c + n)%n
 		y = (pow(y, 2, n) + c + n)%n
 
-		d = GCD(abs(x-y),n)
+		if (abs(x-y) == 0):
+			d = n
+		else:
+			d = GCD(abs(x-y),n)
 
 		if (d==n):
 			PollardRho(n)
