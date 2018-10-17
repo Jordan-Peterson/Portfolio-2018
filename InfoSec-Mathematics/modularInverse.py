@@ -85,24 +85,25 @@ def ExtendedEuclid(a, b):
 
 	i = 0
 	for r in rList[:-1]:
-
 		objList.append(Remainder(r,x,y))
 
+		## first remainder
 		if(r == rList[0]):
 			objList[-1].q2 = (qList[i] * (-1))
 			i += 1
 
+		## second remainder
 		elif(r == rList[1]):
 			print(qList[i])
 			objList[-1].q1 = -qList[i]
 			objList[-1].q2 = -(qList[i-1] * objList[-1].q2) + 1
 			i += 1
 
+		## all other remainders
 		else:
 			objList[-1].q1 = objList[-3].q1 -(qList[i] * objList[-2].q1)
 			objList[-1].q2 = objList[-3].q2 -(qList[i] * objList[-2].q2)
 			i += 1
-
 	return objList.pop()
 
 if __name__== '__main__':
