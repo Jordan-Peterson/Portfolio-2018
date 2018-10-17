@@ -36,6 +36,12 @@ class Remainder():
 		self.q1 = 1
 		self.q2 = -1
 
+	def getQ1(self):
+		return self.q1
+
+	def getQ2(self):
+		return self.q2
+
 	def toString(self):
 		print(str(self.name) + " = " + str(self.value1) + " (" + str(self.q1) + ") + " + str(self.value2) + " (" + str(self.q2) + ")")
 
@@ -87,8 +93,9 @@ def ExtendedEuclid(a, b):
 			i += 1
 
 		elif(r == rList[1]):
+			print(qList[i])
 			objList[-1].q1 = -qList[i]
-			objList[-1].q2 = -(qList[i] * objList[-1].q2) + 1
+			objList[-1].q2 = -(qList[i-1] * objList[-1].q2) + 1
 			i += 1
 
 		else:
