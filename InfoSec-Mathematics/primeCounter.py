@@ -6,7 +6,7 @@ import math
 def main(argv):
 	## Take in all the arguments from command line and define flags
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"p:t:",["p=","tries="])
+		opts, args = getopt.getopt(sys.argv[1:],"p:m:",["p=","m="])
 	except getopt.GetoptError:
 		errorMessage()
 		sys.exit(1)
@@ -15,13 +15,15 @@ def main(argv):
 	for opt, arg in opts:
 		if opt in ("-p", "--p"):
 			p = int(arg)
+			primes = CountPrime(p)
+			print("# of primes between 2 and " + str(p) + " is " + str(primes) + ". With ratio " + str(primes/(p/math.log(p))))
+		elif opt in ("-m", "--m"):
+			print(Miller_Rabin(int(arg)))
 
 		## print error message if unknown flag is used
 		else:
 			errorMessage()
 			sys.exit(1)
-	primes = CountPrime(p)
-	print("# of primes between 2 and " + str(p) + " is " + str(primes) + ". With ratio " + str(primes/(p/math.log(p))))
 
 def errorMessage():
 	print("Unfamiliar flags, try python3 modularInverse.py -h")
@@ -33,7 +35,6 @@ def CountPrime(p):
 	i = 3
 	while( i <= p):
 		if(Miller_Rabin(i)):
-			print("i: " + str(i))
 			primeCount += 1
 		i += 2
 	return primeCount
@@ -48,7 +49,6 @@ def Miller_Rabin(p):
 	## for T number of tests
 	if (p > 10):
 		testRange = math.floor(2*(math.log(p)**2))
-		print(testRange)
 	else:
 		testRange = 10
 
@@ -59,7 +59,6 @@ def Miller_Rabin(p):
 		while (q % 2 is 0):
 			k += 1
 			q = ((p-1)//(2**k))
-
 		## pick a random number "a"
 		if(p <= 3):
 			a = random.randint(2,p-1)
@@ -68,9 +67,9 @@ def Miller_Rabin(p):
 		## AND a^(2^i * q) != -1 mod p for all 0 <= i <= k-1
 		## Then then p is composite because a is a witness
 		## if not, then we do not know, move on to next test
-		if((a**q)%p is not 1):
+		if((a**q)%p != 1):
 			for i in range(k):
-				if((a**((2**i)*q)) % p is p-1):
+				if((a**((2**i)*q)) % p == p-1):
 					flag = False
 			if(flag):
 				return False
@@ -80,3 +79,4 @@ def Miller_Rabin(p):
 
 if __name__ == '__main__':
 	main(sys.argv[-1:])
+
