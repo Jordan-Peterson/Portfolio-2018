@@ -4,16 +4,17 @@
 #include <thread> 
 #include <vector> 
 #include <memory> 
+#include <time.h>
 #include "tcpUserSocket.h"
 #include "tcpServerSocket.h"
+#include "commandHandler.h"
 
 using namespace std;
 
 bool ready = true; 
 
-int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id)
+int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id,commandHandler handler)
 {
-
     cout << "Waiting for message from Client Thread" << id << std::endl;
     string msg;
     ssize_t val;
@@ -21,6 +22,9 @@ int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id)
     while (cont) 
     {
         tie(msg,val) = clientSocket.get()->recvString();
+        
+        handler.handleCommand(msg,clientSocket);
+
         if (msg.substr(0,4) == "EXIT")
             cont = false; 
        
@@ -67,6 +71,8 @@ int main(int argc, char * argv[])
     cout << "Waiting to Accept Socket" << std::endl;
     int id = 0; 
     vector<unique_ptr<thread>> threadList; 
+
+    commandHandler handler(threadList,mysocket);
   
     while (ready)
     { 
@@ -75,7 +81,7 @@ int main(int argc, char * argv[])
         tie(clientSocket,val) = mysocket.acceptSocket();
         cout << "value for accept is " << val << std::endl; 
         cout << "Socket Accepted" << std::endl; 
-        unique_ptr<thread> t = make_unique<thread>(cclient,clientSocket,id); 
+        unique_ptr<thread> t = make_unique<thread>(cclient,clientSocket,id,handler); 
         threadList.push_back(std::move(t)); 
         
         id++; //not the best way to go about it. 

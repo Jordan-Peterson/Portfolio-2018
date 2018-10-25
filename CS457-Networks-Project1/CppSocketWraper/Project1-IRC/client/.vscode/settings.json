@@ -3,6 +3,7 @@
         "vector": "cpp",
         "*.tcc": "cpp",
         "tuple": "cpp",
-        "string_view": "cpp"
+        "string_view": "cpp",
+        "iostream": "cpp"
     }
 }
