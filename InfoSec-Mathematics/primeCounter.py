@@ -34,8 +34,7 @@ def CountPrime(p):
 	primeCount = 1
 	i = 3
 	while( i <= p):
-		if(Miller_Rabin(i)):
-			primeCount += 1
+		primeCount += is_Prime(i)
 		i += 2
 	return primeCount
 
@@ -43,38 +42,28 @@ def CountPrime(p):
 ## a^q == 1 mod p
 ## and a^(2^i * q) == -1 mod p
 ## for a random 'a'
-def Miller_Rabin(p):
-	flag = True
-	a = 2
-	## for T number of tests
-	if (p > 10):
-		testRange = math.floor(2*(math.log(p)**2))
-	else:
-		testRange = 10
+def is_Prime(p):
+	## Take care of trivial cases
+	if (p == 2 or p == 3):
+		return 1
+	elif(p < 2 or p % 2 ==0):
+		return 0
 
-	for i in range(0,testRange):
-		## represent p-1 as 2^k * q, where q is odd
-		k = -1
-		q = 0
-		while (q % 2 is 0):
-			k += 1
-			q = ((p-1)//(2**k))
-		## pick a random number "a"
-		if(p <= 3):
-			a = random.randint(2,p-1)
+	## all that's left under 9 is 5 or 7
+	elif(p < 9):
+		return 1
+	elif(p % 3 == 0):
+		return 0
 
-		## if a^q != 1 mod p
-		## AND a^(2^i * q) != -1 mod p for all 0 <= i <= k-1
-		## Then then p is composite because a is a witness
-		## if not, then we do not know, move on to next test
-		if((a**q)%p != 1):
-			for i in range(k):
-				if((a**((2**i)*q)) % p == p-1):
-					flag = False
-			if(flag):
-				return False
-		a += 1
-	return True
+	r = int(math.sqrt(p))
+	f = 5
+
+	while(f <= r):
+		if (p % f ==0 or p %(f+2) == 0):
+			return 0
+		else:
+			f+=6
+	return 1
 
 
 if __name__ == '__main__':
