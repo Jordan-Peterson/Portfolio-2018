@@ -6,7 +6,7 @@ using namespace std;
 
 int main(int argc, char * argv[]){
 
-    cs457::clientSocket mySocket(2000);
+    clientSocket mySocket(2000);
     mySocket.connectToServer();
 
     string input = "";
@@ -14,7 +14,7 @@ int main(int argc, char * argv[]){
     while(input != "EXIT"){
 
         if(input != ""){
-            mySocket.sendMessage(input);
+            mySocket.sendString(input);
         }
 
         cin >> input;

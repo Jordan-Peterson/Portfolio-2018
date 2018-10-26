@@ -1,6 +1,6 @@
 #include "commandHandler.h"
 
-commandHandler::commandHandler(vector<unique_ptr<thread>>& v, cs457::tcpServerSocket s):clientVector(v),serverSocket(s){};
+commandHandler::commandHandler(cs457::tcpServerSocket s):serverSocket(s){};
 
 void commandHandler::handleCommand(string command,shared_ptr<cs457::tcpUserSocket> usrSocket){
     if(commandMap.find(command) == commandMap.end()){

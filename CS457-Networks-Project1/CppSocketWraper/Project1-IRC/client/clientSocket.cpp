@@ -1,16 +1,16 @@
 #include "clientSocket.h"
 
 
-cs457::clientSocket::clientSocket(uint portNumber):port(portNumber),address("127.0.0.1"){
-    cs457::clientSocket::init();
+clientSocket::clientSocket(uint portNumber):port(portNumber),address("127.0.0.1"){
+    clientSocket::init();
 };
 
-cs457::clientSocket::clientSocket(string networkAddress, uint portNumber){
-    cs457::clientSocket::init();
+clientSocket::clientSocket(string networkAddress, uint portNumber){
+    clientSocket::init();
 
 };
 
-int cs457::clientSocket::init(){
+int clientSocket::init(){
     //clear the memory in the location of serverAddress
     memset(&serverAddress, '0', sizeof(serverAddress)); 
    
@@ -21,7 +21,7 @@ int cs457::clientSocket::init(){
     return 0;
 };
 
-int cs457::clientSocket::connectToServer(){ //Got most of this function from geeksforgeeks.com: https://www.geeksforgeeks.org/socket-programming-cc/
+int clientSocket::connectToServer(){ //Got most of this function from geeksforgeeks.com: https://www.geeksforgeeks.org/socket-programming-cc/
     int sock = 0;
     
     //create a socket that will use the tcp protocol
@@ -48,7 +48,32 @@ int cs457::clientSocket::connectToServer(){ //Got most of this function from gee
     return 0;
 };
 
-int cs457::clientSocket::sendMessage(const string &data){
+tuple<string,ssize_t> clientSocket::recvString(int bufferSize, bool useMutex)
+{
+    char stringBuffer[bufferSize]; 
+    memset(stringBuffer, 0, sizeof(stringBuffer));    //change made here. Zeros out buffer.
+
+    ssize_t recvMsgSize;
+
+    if (useMutex)
+    {
+        lock_guard<mutex> lock(recvMutex);
+        recvMsgSize = recv(serverSocket, stringBuffer, bufferSize, 0); 
+    }    
+    else
+    {
+        recvMsgSize = recv(serverSocket, stringBuffer, bufferSize, 0); 
+    }
+    
+    
+   
+    return make_tuple(string(stringBuffer),recvMsgSize);     
+};
+        
+
+ssize_t clientSocket::sendString(const string & data)
+{
+    //https://stackoverflow.com/questions/7352099/stdstring-to-char
     if (data.size() == 0) return 0;                 
     int bufferSize = data.size()+1; 
     vector<char> stringBuffer(data.c_str(), data.c_str() + data.size() + 1u);
@@ -58,4 +83,5 @@ int cs457::clientSocket::sendMessage(const string &data){
 
     return rval;
 }
+
 

@@ -72,7 +72,7 @@ int main(int argc, char * argv[])
     int id = 0; 
     vector<unique_ptr<thread>> threadList; 
 
-    commandHandler handler(threadList,mysocket);
+    commandHandler handler(mysocket);
   
     while (ready)
     { 
