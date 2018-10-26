@@ -6,19 +6,22 @@ import math
 def main(argv):
 	## Take in all the arguments from command line and define flags
 	try:
-		opts, args = getopt.getopt(sys.argv[1:],"p:m:",["p=","m="])
+		opts, args = getopt.getopt(sys.argv[1:],"c:p:b:o:",["p=","m=","b=","o="])
 	except getopt.GetoptError:
 		errorMessage()
 		sys.exit(1)
 
 	## Asign flag values to the correct global variables
 	for opt, arg in opts:
-		if opt in ("-p", "--p"):
+		if opt in ("-c", "--c"):
 			p = int(arg)
 			primes = CountPrime(p)
 			print("# of primes between 2 and " + str(p) + " is " + str(primes) + ". With ratio " + str(primes/(p/math.log(p))))
-		elif opt in ("-m", "--m"):
-			print(Miller_Rabin(int(arg)))
+		elif opt in ("-p", "--p"):
+			print(is_Prime(int(arg)))
+		elif opt in ("-b", "--b"):
+			x,y = prime_Between(int(arg))
+			print("pi_1(x): " + str(x) + " pi_3(x): " + str(y) + " ratio: " + str(x/y))
 
 		## print error message if unknown flag is used
 		else:
@@ -26,7 +29,7 @@ def main(argv):
 			sys.exit(1)
 
 def errorMessage():
-	print("Unfamiliar flags, try python3 modularInverse.py -h")
+	print("Unfamiliar flags")
 
 ## run the miller-rabin primality test for each number from 2 to a given input
 ## output the number of prime integers between 2 and X
@@ -64,6 +67,18 @@ def is_Prime(p):
 		else:
 			f+=6
 	return 1
+
+def prime_Between(N):
+	xCount = 0
+	yCount = 0
+
+	for i in range(2,N):
+		if(is_Prime(i) == 1):
+			if(i % 4 == 1):
+				xCount += 1
+			elif(i % 4 == 3):
+				yCount += 1
+	return xCount, yCount
 
 
 if __name__ == '__main__':
