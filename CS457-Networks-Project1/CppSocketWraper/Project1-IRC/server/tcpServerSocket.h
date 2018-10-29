@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SERVER_SOCK
+#define SERVER_SOCK
 
 #include <sys/socket.h>
 #include <netinet/in.h> 
@@ -10,16 +11,7 @@
 #include <memory> 
 
 
-//class forwards 
-namespace cs457
-{
-    class tcpUserSocket; 
-    
-}
-
-namespace cs457
-{
-    using namespace std; 
+ using namespace std; 
     class tcpServerSocket
     {
     public:
@@ -27,7 +19,7 @@ namespace cs457
         tcpServerSocket(string networkAddress, uint portNumber);
         int bindSocket();
         int listenSocket();
-        tuple<shared_ptr<cs457::tcpUserSocket>,int> acceptSocket();
+        tuple<shared_ptr<tcpUserSocket>,int> acceptSocket();
       
     private: 
         void init();
@@ -43,7 +35,4 @@ namespace cs457
         struct in_addr addr;
         
     };
-
-
-}
-
+#endif

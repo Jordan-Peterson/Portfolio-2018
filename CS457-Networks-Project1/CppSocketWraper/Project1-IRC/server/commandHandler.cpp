@@ -1,8 +1,8 @@
 #include "commandHandler.h"
 
-commandHandler::commandHandler(cs457::tcpServerSocket s):serverSocket(s){};
+commandHandler::commandHandler(tcpServerSocket s, vector<shared_ptr<channel>> chl, vector<client> cl):serverSocket(s),channelList(chl),clientList(cl){};
 
-void commandHandler::handleCommand(string command,shared_ptr<cs457::tcpUserSocket> usrSocket){
+void commandHandler::handleCommand(string command,shared_ptr<tcpUserSocket> usrSocket){
     if(commandMap.find(command) == commandMap.end()){
         cout << command << endl;
     }

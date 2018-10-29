@@ -1,7 +1,7 @@
 
 #include "client.h"
 
-client::client(shared_ptr<cs457::tcpUserSocket> sock):clientSocket(sock){};
+client::client(shared_ptr<tcpUserSocket> sock):clientSocket(sock){};
 
 void client::setNick(string nick){
     nickname = nick;

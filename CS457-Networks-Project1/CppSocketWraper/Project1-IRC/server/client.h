@@ -1,4 +1,5 @@
-
+#ifndef CLIENT_H
+#define CLIENT_H
 
 #include <string.h>
 #include "tcpUserSocket.h"
@@ -6,19 +7,19 @@
 using namespace std; 
 class client{
     public:
-        client(shared_ptr<cs457::tcpUserSocket> sock);
+        client(shared_ptr<tcpUserSocket> sock);
+        inline bool operator==(client c){return (c.getSock() == clientSocket);};
         void setNick(string nick);
         void setPass(string pass);
         inline string getNick(){return nickname;};
         inline string getPass(){return password;};
+        inline shared_ptr<tcpUserSocket> getSock(){return clientSocket;};
     
     private: 
         string nickname;
         string password;
-        shared_ptr<cs457::tcpUserSocket> clientSocket;
+        shared_ptr<tcpUserSocket> clientSocket;
 
 };
-
-
-
+#endif
 

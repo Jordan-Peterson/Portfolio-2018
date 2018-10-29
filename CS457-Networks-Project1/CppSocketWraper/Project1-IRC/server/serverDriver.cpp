@@ -8,12 +8,14 @@
 #include "tcpUserSocket.h"
 #include "tcpServerSocket.h"
 #include "commandHandler.h"
+#include "client.h"
+#include "channel.h"
 
 using namespace std;
 
 bool ready = true; 
 
-int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id,commandHandler handler)
+int cclient(shared_ptr<tcpUserSocket> clientSocket,int id,commandHandler handler)
 {
     cout << "Waiting for message from Client Thread" << id << std::endl;
     string msg;
@@ -30,7 +32,7 @@ int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id,commandHandler 
        
         cout << "[SERVER] The client is sending message " << msg << " -- With value return = " << val << endl;
         string s =  "[SERVER REPLY] The client is sending message:" + msg  + "\n"; 
-        thread childT1(&cs457::tcpUserSocket::sendString,clientSocket.get(),s,true);
+        thread childT1(&tcpUserSocket::sendString,clientSocket.get(),s,true);
         //thread childT2(&cs457::tcpUserSocket::sendString,clientSocket.get(),msg,true);
         //thread childT3(&cs457::tcpUserSocket::sendString,clientSocket.get(),"\n",true);
         
@@ -41,8 +43,8 @@ int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id,commandHandler 
         //clientSocket.get()->sendString("\n"); 
          if (msg.substr(0,6) == "SERVER")
         {
-            thread childTExit(&cs457::tcpUserSocket::sendString,clientSocket.get(),"GOODBYE EVERYONE",false);
-            thread childTExit2(&cs457::tcpUserSocket::sendString,clientSocket.get(),"\n",false);
+            thread childTExit(&tcpUserSocket::sendString,clientSocket.get(),"GOODBYE EVERYONE",false);
+            thread childTExit2(&tcpUserSocket::sendString,clientSocket.get(),"\n",false);
             ready = false;   
             cont = false;   
             childTExit.join(); 
@@ -63,25 +65,31 @@ int cclient(shared_ptr<cs457::tcpUserSocket> clientSocket,int id,commandHandler 
 int main(int argc, char * argv[])
 {
     cout << "Initializing Socket" << std::endl; 
-    cs457::tcpServerSocket mysocket(2000);
+    tcpServerSocket mysocket(2000);
     cout << "Binding Socket" << std::endl; 
     mysocket.bindSocket(); 
     cout << "Listening Socket" << std::endl; 
     mysocket.listenSocket(); 
     cout << "Waiting to Accept Socket" << std::endl;
     int id = 0; 
-    vector<unique_ptr<thread>> threadList; 
+    vector<unique_ptr<thread>> threadList;
+    vector<client> clientList; 
+    vector<shared_ptr<channel>> channelList;
+    //shared_ptr<channel> ch1 = make_shared<channel>(channel("General"));
+    //channelList.push_back(ch1);
 
-    commandHandler handler(mysocket);
+    commandHandler handler(mysocket,channelList,clientList);
   
     while (ready)
     { 
-        shared_ptr<cs457::tcpUserSocket> clientSocket;
+        shared_ptr<tcpUserSocket> clientSocket;
         int val; 
         tie(clientSocket,val) = mysocket.acceptSocket();
         cout << "value for accept is " << val << std::endl; 
         cout << "Socket Accepted" << std::endl; 
-        unique_ptr<thread> t = make_unique<thread>(cclient,clientSocket,id,handler); 
+        clientList.push_back(client(clientSocket));
+        channelList.at(0) ->addClient(client(clientSocket));
+        unique_ptr<thread> t = make_unique<thread>(cclient,clientSocket,id,&handler); 
         threadList.push_back(std::move(t)); 
         
         id++; //not the best way to go about it. 

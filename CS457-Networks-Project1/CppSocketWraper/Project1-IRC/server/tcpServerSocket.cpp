@@ -6,31 +6,31 @@
 
 using namespace std; 
 
-cs457::tcpServerSocket::tcpServerSocket(uint portNumber): port(portNumber), address("")
+tcpServerSocket::tcpServerSocket(uint portNumber): port(portNumber), address("")
 {
     init(); 
     setSocketOptions();
 };     
 
-cs457::tcpServerSocket::tcpServerSocket(string networkAddress, uint portNumber): address(networkAddress), port(portNumber)
+tcpServerSocket::tcpServerSocket(string networkAddress, uint portNumber): address(networkAddress), port(portNumber)
 {
     init(); 
     setSocketOptions();
 };
 
-int cs457::tcpServerSocket::bindSocket()
+int tcpServerSocket::bindSocket()
 {
     return bind(serverSocket,(struct sockaddr *)&serverAddress,sizeof(serverAddress));    
 }
         
-int cs457::tcpServerSocket::listenSocket()
+int tcpServerSocket::listenSocket()
 {
     return listen(serverSocket,14);
 }
 
-tuple<shared_ptr<cs457::tcpUserSocket>,int> cs457::tcpServerSocket::acceptSocket()
+tuple<shared_ptr<tcpUserSocket>,int> tcpServerSocket::acceptSocket()
 {
-    shared_ptr<cs457::tcpUserSocket> userSocket = make_shared<tcpUserSocket>(); 
+    shared_ptr<tcpUserSocket> userSocket = make_shared<tcpUserSocket>(); 
     socklen_t len = userSocket.get()->getLenghtPointer();
     int client_fd = accept(serverSocket,(struct sockaddr *)userSocket.get()->getAddressPointer(),&len);
     userSocket.get()->setSocket(client_fd); 
@@ -49,7 +49,7 @@ tuple<shared_ptr<cs457::tcpUserSocket>,int> cs457::tcpServerSocket::acceptSocket
     return make_tuple(userSocket,client_fd); 
 }
 
- void cs457::tcpServerSocket::init()
+ void tcpServerSocket::init()
  {
     serverSocket = socket(AF_INET,SOCK_STREAM,IPPROTO_TCP);
     const char * cstr = address.c_str();
@@ -69,7 +69,7 @@ tuple<shared_ptr<cs457::tcpUserSocket>,int> cs457::tcpServerSocket::acceptSocket
     serverAddress.sin_port = htons(port);
 }
 
-void cs457::tcpServerSocket::setSocketOptions()
+void tcpServerSocket::setSocketOptions()
 {
     int optval = 1;
     setsockopt(serverSocket, SOL_SOCKET, SO_REUSEADDR, 
