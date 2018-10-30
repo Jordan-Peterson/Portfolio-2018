@@ -17,7 +17,7 @@ int main(int argc, char * argv[]){
             mySocket.sendString(input);
         }
 
-        cin >> input;
+        getline(cin,input);
     }
     
 

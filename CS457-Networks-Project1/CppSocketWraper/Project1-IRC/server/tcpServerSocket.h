@@ -9,6 +9,7 @@
 #include <tuple> 
 #include <unistd.h>
 #include <memory> 
+#include "tcpUserSocket.h"
 
 
  using namespace std; 

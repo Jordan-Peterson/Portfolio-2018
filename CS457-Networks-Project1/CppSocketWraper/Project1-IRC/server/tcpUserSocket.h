@@ -1,11 +1,12 @@
 #ifndef USER_SOCK
-#define USRE_SOCK
+#define USER_SOCK
 
 #include <sys/socket.h>
 #include <netinet/in.h> 
 #include <arpa/inet.h>
 #include <strings.h>
 #include <string> 
+#include <cstring>
 #include <tuple> 
 #include <unistd.h>
 #include <assert.h>

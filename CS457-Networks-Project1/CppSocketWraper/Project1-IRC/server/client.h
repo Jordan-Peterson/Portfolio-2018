@@ -18,6 +18,7 @@ class client{
     private: 
         string nickname;
         string password;
+        int numChannels;
         shared_ptr<tcpUserSocket> clientSocket;
 
 };

@@ -13,7 +13,8 @@ class channel{
         channel(string name);
         bool addClient(client);
         bool removeClient(client);
-        vector<client> getClients();
+        inline string getChannelName(){return channelName;};
+        inline vector<client> getClients(){return clients;};
         void sendAll(string msg);
 
     private:
@@ -21,5 +22,4 @@ class channel{
     vector<client> clients;
 
 };
-
 #endif
