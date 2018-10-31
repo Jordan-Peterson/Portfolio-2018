@@ -9,7 +9,7 @@
             "type": "shell",
             "command": "g++-8",
             "args": [
-                "-g", "clientSocket.h", "clientSocket.cpp", "clientDriver.cpp", "-pthread", "-o", "driver.out", "&&", "./driver.out"
+                "-g", "clientSocket.cpp", "clientDriver.cpp", "-pthread", "-o", "driver.out", "&&", "./driver.out"
             ],
             "group": {
                 "kind": "build",

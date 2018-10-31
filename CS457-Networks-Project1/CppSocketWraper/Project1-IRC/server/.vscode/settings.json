@@ -39,6 +39,7 @@
         "utility": "cpp",
         "cmath": "cpp",
         "condition_variable": "cpp",
-        "optional": "cpp"
+        "optional": "cpp",
+        "string": "cpp"
     }
 }

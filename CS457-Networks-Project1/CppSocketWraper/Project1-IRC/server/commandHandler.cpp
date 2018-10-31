@@ -1,13 +1,13 @@
 #include "commandHandler.h"
 
-commandHandler::commandHandler(vector<unique_ptr<thread>>& v, cs457::tcpServerSocket s):clientVector(v),serverSocket(s){};
+commandHandler::commandHandler(tcpServerSocket s, vector<shared_ptr<channel>> chl):serverSocket(s),channelList(chl){};
 
-void commandHandler::handleCommand(string command,shared_ptr<cs457::tcpUserSocket> usrSocket){
-    if(commandMap.find(command) == commandMap.end()){
-        cout << command << endl;
+void commandHandler::handleCommand(vector<string> command,client usr){
+    if(commandMap.find(command[0]) == commandMap.end()){
+        
     }
     else{
-        switch(commandMap.find(command)->second){
+        switch(commandMap.find(command[0])->second){
             case LIST:cout << "/LIST accepted" <<endl;break;
             case AWAY:;
             case CONNECT:;
@@ -16,12 +16,12 @@ void commandHandler::handleCommand(string command,shared_ptr<cs457::tcpUserSocke
             case INFO:;
             case INVITE:;
             case ISON:;
-            case JOIN:;
+            case JOIN:joinCommand(usr,command);break;
             case KICK:;
             case MODE:;
             case NICK:;
             case NOTICE:;
-            case PART:;
+            case PART:partCommand(usr,command);break;
             case OPER:;
             case PASS:;
             case PING:;
@@ -46,3 +46,81 @@ void commandHandler::handleCommand(string command,shared_ptr<cs457::tcpUserSocke
         }
     }
 }
+
+vector<string> commandHandler::splitMsg(string msg){
+    vector<string> ret;
+    stringstream stream(msg);
+    string word;
+
+    while(getline(stream,word,' ')){
+        ret.push_back(word);
+    }
+
+    return ret;
+}
+
+bool commandHandler::checkChannel(string channelName){
+    //Check if the name provided is an existing channel
+    vector<shared_ptr<channel>>::iterator chIter;
+
+    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+        if(chIter->get()->getChannelName() == channelName){
+            return true;
+        }
+    }
+    return false;
+}
+
+shared_ptr<channel> commandHandler::getChannel(string channelName){
+    vector<shared_ptr<channel>>::iterator chIter;
+
+    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+        if(chIter->get()->getChannelName() == channelName){
+            return *chIter;
+        }
+    }
+    return NULL;
+}
+
+bool commandHandler::channelHasClient(string channelName,client cl){
+    shared_ptr<channel> ch = getChannel(channelName);
+    if(ch.get() == NULL){
+        return false;
+    }
+    vector<client> clients = ch->getClients();
+    vector<client>::iterator clIter;
+
+    for(clIter = clients.begin();clIter != clients.end();advance(clIter,1)){
+        if(clIter->getNick() == cl.getNick()){
+            return true;
+        }
+    }
+    return false;
+}
+
+bool commandHandler::joinCommand(client usr, vector<string> msg){
+
+    if(msg.size() >= 2){
+        string channelName = msg[1];
+        if(checkChannel(channelName) && !channelHasClient(channelName,usr)){
+            getChannel(channelName)->addClient(usr);
+            cout << "User " << usr.getNick() << " added to " << channelName << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
+
+bool commandHandler::partCommand(client usr, vector<string> msg){
+    if(msg.size() >= 2){
+        string channelName = msg[1];
+        if(checkChannel(channelName) && channelHasClient(channelName,usr)){
+            getChannel(channelName) ->removeClient(usr);
+            cout << "user " << usr.getNick() << " removed from " << channelName << endl;
+            return true;
+        }
+    }
+    return false;
+}
+
