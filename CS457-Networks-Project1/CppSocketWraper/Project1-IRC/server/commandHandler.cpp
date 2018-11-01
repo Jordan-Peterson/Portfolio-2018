@@ -13,7 +13,7 @@ void commandHandler::handleCommand(vector<string> command,client usr){
             case CONNECT:;
             case DIE:;
             case HELP:;
-            case INFO:;
+            case INFO:infoCommand(usr,command);break;
             case INVITE:;
             case ISON:;
             case JOIN:joinCommand(usr,command);break;
@@ -105,6 +105,7 @@ bool commandHandler::joinCommand(client usr, vector<string> msg){
         if(checkChannel(channelName) && !channelHasClient(channelName,usr)){
             getChannel(channelName)->addClient(usr);
             cout << "User " << usr.getNick() << " added to " << channelName << endl;
+            usr.getSock()->sendString("You have been added to channel: " + channelName);
             return true;
         }
     }
@@ -118,9 +119,15 @@ bool commandHandler::partCommand(client usr, vector<string> msg){
         if(checkChannel(channelName) && channelHasClient(channelName,usr)){
             getChannel(channelName) ->removeClient(usr);
             cout << "user " << usr.getNick() << " removed from " << channelName << endl;
+            usr.getSock()->sendString("You have been removed from channel: " + channelName);
             return true;
         }
     }
     return false;
+}
+
+bool commandHandler::infoCommand(client usr, vector<string> msg){
+    usr.getSock()->sendString("Server Info: IP= " + serverSocket.getIP() + " Port= " + to_string(serverSocket.getPort()));
+    return true;
 }
 

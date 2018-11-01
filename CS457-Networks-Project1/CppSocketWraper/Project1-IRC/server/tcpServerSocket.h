@@ -21,6 +21,8 @@
         int bindSocket();
         int listenSocket();
         tuple<shared_ptr<tcpUserSocket>,int> acceptSocket();
+        inline string getIP(){return address;};
+        inline uint getPort(){return port;};
       
     private: 
         void init();
