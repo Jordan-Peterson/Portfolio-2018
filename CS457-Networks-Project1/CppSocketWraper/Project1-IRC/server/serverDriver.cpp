@@ -15,7 +15,7 @@ using namespace std;
 
 bool ready = true; 
 
-int cclient(client usr,int id,commandHandler handler)
+int cclient(client usr,int id,commandHandler& handler)
 {
 
     cout << "Waiting for message from Client Thread" << id << std::endl;
@@ -83,7 +83,7 @@ int main(int argc, char * argv[])
         cout << "Socket Accepted" << std::endl; 
         client c = client(clientSocket);
         channelList.at(0) ->addClient(c);
-        unique_ptr<thread> t = make_unique<thread>(cclient,c,id,handler); 
+        unique_ptr<thread> t = make_unique<thread>(cclient,c,id,ref(handler)); 
         threadList.push_back(std::move(t)); 
         
         id++; //not the best way to go about it. 

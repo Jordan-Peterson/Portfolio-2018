@@ -8,7 +8,7 @@ void commandHandler::handleCommand(vector<string> command,client usr){
     }
     else{
         switch(commandMap.find(command[0])->second){
-            case LIST:cout << "/LIST accepted" <<endl;break;
+            case LIST:listCommand(usr,command);break;
             case AWAY:;
             case CONNECT:;
             case DIE:;
@@ -19,7 +19,7 @@ void commandHandler::handleCommand(vector<string> command,client usr){
             case JOIN:joinCommand(usr,command);break;
             case KICK:;
             case MODE:;
-            case NICK:;
+            case NICK:nickCommand(usr,command);break;
             case NOTICE:;
             case PART:partCommand(usr,command);break;
             case OPER:;
@@ -33,7 +33,7 @@ void commandHandler::handleCommand(vector<string> command,client usr){
             case SETNAME:;
             case SILENCE:;
             case TIME:;
-            case TOPIC:;
+            case TOPIC:topicCommand(usr, command);
             case USER:;
             case USERHOST:;
             case USERIP:;
@@ -131,3 +131,58 @@ bool commandHandler::infoCommand(client usr, vector<string> msg){
     return true;
 }
 
+bool commandHandler::listCommand(client usr, vector<string> msg){
+    string channels = "";
+    vector<shared_ptr<channel>>::iterator chIter;
+    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+        channels += chIter->get()->getChannelName() + ", ";
+    }
+    usr.getSock()->sendString("List of all channels: " + channels);
+}
+
+bool commandHandler::nickCommand(client usr, vector<string> msg){
+    if(msg.size() >= 2){
+        string oldName = usr.getNick();
+        usr.setNick(msg[1]);
+        string response = "user nickname changed from: " + oldName + " to: " + usr.getNick();
+        cout << response << endl;
+        usr.getSock()->sendString(response);
+        return true;
+    }
+    else{
+        usr.getSock()->sendString("nickname not changed: possible invalid arguments to /NICK");
+        return false;
+    }
+
+}
+
+bool commandHandler::topicCommand(client usr, vector<string> msg){
+    //List the topic of the channel
+    if(msg.size() == 2){
+        usr.getSock()->sendString("channel " + msg[1] + " topic is: " + getChannel(msg[1])->getTopic());
+        return true;
+    }
+    //Change the topic of the channel
+    else if(msg.size() >= 3){
+        string newTopic = "";
+        for(int i = 2;i < msg.size();i++){
+            if(i == msg.size()-1){
+                newTopic += msg[i];
+            }
+            else{
+                newTopic += msg[i] + " ";
+            }
+        }
+        
+        getChannel(msg[1])->setTopic(newTopic);
+        cout << "channel: " + msg[1] + " topic has been changed to: " + newTopic << endl;
+        usr.getSock()->sendString("channel: " + msg[1] + " topic has been changed to: " + newTopic);
+        return true;
+
+    }
+    //Do nothing
+    else{
+        usr.getSock()->sendString("invalid arguments for /TOPIC");
+        return false;
+    }
+}

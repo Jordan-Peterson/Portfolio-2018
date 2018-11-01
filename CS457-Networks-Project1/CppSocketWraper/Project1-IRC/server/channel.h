@@ -16,9 +16,12 @@ class channel{
         inline string getChannelName(){return channelName;};
         inline vector<client> getClients(){return clients;};
         void sendAll(string msg);
+        inline string getTopic(){return topic;};
+        inline void setTopic(string tp){topic = tp;};
 
     private:
     string channelName;
+    string topic;
     vector<client> clients;
 
 };
