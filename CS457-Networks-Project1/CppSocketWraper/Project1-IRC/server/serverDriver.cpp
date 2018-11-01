@@ -32,16 +32,7 @@ int cclient(client usr,int id,commandHandler handler)
             cont = false; 
        
         cout << "[SERVER] The client is sending message " << msg << " -- With value return = " << val << endl;
-        string s =  "[SERVER REPLY] The client is sending message:" + msg  + "\n"; 
-        thread childT1(&tcpUserSocket::sendString,usr.getSock().get(),s,true);
-        //thread childT2(&cs457::tcpUserSocket::sendString,clientSocket.get(),msg,true);
-        //thread childT3(&cs457::tcpUserSocket::sendString,clientSocket.get(),"\n",true);
         
-        childT1.join();
-        //childT2.join(); 
-        //childT3.join(); 
-        //clientSocket.get()->sendString(msg); 
-        //clientSocket.get()->sendString("\n"); 
          if (msg.substr(0,6) == "SERVER")
         {
             thread childTExit(&tcpUserSocket::sendString,usr.getSock().get(),"GOODBYE EVERYONE",false);

@@ -6,7 +6,7 @@
 
 using namespace std; 
 
-tcpServerSocket::tcpServerSocket(uint portNumber): port(portNumber), address("")
+tcpServerSocket::tcpServerSocket(uint portNumber): port(portNumber), address("127.0.0.1")
 {
     init(); 
     setSocketOptions();
