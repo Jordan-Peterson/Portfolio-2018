@@ -66,13 +66,8 @@ int main(int argc, char * argv[])
     cout << "Waiting to Accept Socket" << std::endl;
     int id = 0; 
     vector<unique_ptr<thread>> threadList;
-    vector<shared_ptr<channel>> channelList;
-    shared_ptr<channel> ch1 = make_shared<channel>(channel("General"));
-    shared_ptr<channel> ch2 = make_shared<channel>(channel("secret"));
-    channelList.push_back(ch1);
-    channelList.push_back(ch2);
 
-    commandHandler handler(mysocket,channelList);
+    commandHandler handler(mysocket);
   
     while (ready)
     { 
@@ -82,7 +77,6 @@ int main(int argc, char * argv[])
         cout << "value for accept is " << val << std::endl; 
         cout << "Socket Accepted" << std::endl; 
         client c = client(clientSocket);
-        channelList.at(0) ->addClient(c);
         unique_ptr<thread> t = make_unique<thread>(cclient,c,id,ref(handler)); 
         threadList.push_back(std::move(t)); 
         

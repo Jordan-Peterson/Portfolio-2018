@@ -1,6 +1,6 @@
 #include "commandHandler.h"
 
-commandHandler::commandHandler(tcpServerSocket s, vector<shared_ptr<channel>> chl):serverSocket(s),channelList(chl){};
+commandHandler::commandHandler(tcpServerSocket s):serverSocket(s){};
 
 void commandHandler::handleCommand(vector<string> command,client usr){
     if(commandMap.find(command[0]) == commandMap.end()){
@@ -59,6 +59,15 @@ vector<string> commandHandler::splitMsg(string msg){
     return ret;
 }
 
+void commandHandler::removeChannel(string channelName){
+    vector<shared_ptr<channel>>::iterator chIter;
+    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+        if(chIter->get()->getChannelName() == channelName){
+            channelList.erase(chIter);
+        }
+    }
+}
+
 bool commandHandler::checkChannel(string channelName){
     //Check if the name provided is an existing channel
     vector<shared_ptr<channel>>::iterator chIter;
@@ -102,13 +111,22 @@ bool commandHandler::joinCommand(client usr, vector<string> msg){
 
     if(msg.size() >= 2){
         string channelName = msg[1];
-        if(checkChannel(channelName) && !channelHasClient(channelName,usr)){
+        if(!checkChannel(channelName)){
+            shared_ptr<channel> ch = make_shared<channel>(channel(channelName));
+            channelList.push_back(ch);
+        }
+        if(!channelHasClient(channelName,usr)){
             getChannel(channelName)->addClient(usr);
             cout << "User " << usr.getNick() << " added to " << channelName << endl;
             usr.getSock()->sendString("You have been added to channel: " + channelName);
             return true;
         }
+        else{
+            usr.getSock()->sendString("You are already in channel: " + channelName);
+            return false;
+        }
     }
+    usr.getSock()->sendString("Invalid arguments for /JOIN");
     return false;
 }
 
@@ -121,6 +139,10 @@ bool commandHandler::partCommand(client usr, vector<string> msg){
             cout << "user " << usr.getNick() << " removed from " << channelName << endl;
             usr.getSock()->sendString("You have been removed from channel: " + channelName);
             return true;
+        }
+        if(getChannel(channelName)->getClients().size() == 0){
+            removeChannel(channelName);
+            cout << "channel " + channelName + " has been deleted" <<endl;
         }
     }
     return false;
@@ -135,9 +157,15 @@ bool commandHandler::listCommand(client usr, vector<string> msg){
     string channels = "";
     vector<shared_ptr<channel>>::iterator chIter;
     for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
-        channels += chIter->get()->getChannelName() + ", ";
+        if(chIter == channelList.begin()){
+            channels += chIter->get()->getChannelName();
+        }
+        else{
+            channels += ", " + chIter->get()->getChannelName();
+        }
     }
     usr.getSock()->sendString("List of all channels: " + channels);
+    return true;
 }
 
 bool commandHandler::nickCommand(client usr, vector<string> msg){

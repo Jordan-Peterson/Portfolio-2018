@@ -19,13 +19,14 @@ using std::vector;
 
 class commandHandler{
     public:
-        commandHandler(tcpServerSocket s, vector<shared_ptr<channel>> chl);
+        commandHandler(tcpServerSocket s);
         void handleCommand(vector<string> command,client usr);
         vector<string> splitMsg(string msg);
         shared_ptr<channel> getChannel(string channelName);
         
     private:
         bool checkChannel(string channelName);
+        inline void removeChannel(string channelName);
         bool channelHasClient(string channelName, client cl);
         bool joinCommand(client usr, vector<string> msg);
         bool partCommand(client usr, vector<string> msg);
