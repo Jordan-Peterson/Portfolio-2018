@@ -59,6 +59,17 @@ vector<string> commandHandler::splitMsg(string msg){
     return ret;
 }
 
+vector<client> commandHandler::getAllClients(){
+    vector<client> allClients;
+    vector<shared_ptr<channel>>::iterator chIter;
+    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+        allClients.insert(allClients.end(),chIter->get()->getClients().begin(),chIter->get()->getClients().end());
+    }
+    sort( allClients.begin(), allClients.end() );
+    allClients.erase( unique( allClients.begin(), allClients.end() ), allClients.end() );
+    return allClients;
+}
+
 void commandHandler::removeChannel(string channelName){
     vector<shared_ptr<channel>>::iterator chIter;
     for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
@@ -213,4 +224,22 @@ bool commandHandler::topicCommand(client usr, vector<string> msg){
         usr.getSock()->sendString("invalid arguments for /TOPIC");
         return false;
     }
+}
+
+bool commandHandler::whoCommand(client usr, vector<string> msg){
+    if(msg.size() < 2){
+        vector<client> allClients = getAllClients();
+        vector<client>::iterator clIter;
+        for(clIter = allClients.begin();clIter != allClients.end();advance(clIter,1)){
+            usr.getSock()->sendString(clIter.getNick());
+        }
+        return true;
+    }
+    else:
+        vector<client> allClients = getAllClients();
+        vector<client>::iterator clIter;
+        for(clIter = allClients.begin();clIter != allClients.end();advance(clIter,1)){
+            if(regex_match(clIter.getNick().begin(),clIter.getNick().end(),msg[1]))
+            usr.getSock()->sendString(clIter.getNick());
+        }
 }
