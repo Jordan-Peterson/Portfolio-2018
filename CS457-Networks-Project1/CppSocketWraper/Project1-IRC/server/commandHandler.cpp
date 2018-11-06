@@ -4,7 +4,22 @@ commandHandler::commandHandler(tcpServerSocket s):serverSocket(s){};
 
 void commandHandler::handleCommand(vector<string> command,client usr){
     if(commandMap.find(command[0]) == commandMap.end()){
-        
+        if(command[0][0] == '#' || command[0][0] == '&'){
+            if(command.size() > 1){
+                shared_ptr<channel> channel = getChannel(command[0]);
+                command.erase(command.begin());
+                string message;
+                for (auto const& s : command) { message += s; };
+                vector<client> clients = channel->getClients();
+                vector<client>::iterator clIter;
+                for(clIter = clients.begin();clIter != clients.end();advance(clIter,1)){
+                    clIter->getSock()->sendString("[" + channel->getChannelName() + "] " + clIter->getNick() + ": " + message);
+                }
+            }
+        }
+        else{
+            usr.getSock()->sendString("invalid command: If you wish to talk in a channel, preface the sentance with the channel name starting with # or &");
+        }
     }
     else{
         switch(commandMap.find(command[0])->second){
@@ -65,7 +80,7 @@ vector<client> commandHandler::getAllClients(){
     for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
         allClients.insert(allClients.end(),chIter->get()->getClients().begin(),chIter->get()->getClients().end());
     }
-    sort( allClients.begin(), allClients.end() );
+    sort( allClients.begin(), allClients.end());
     allClients.erase( unique( allClients.begin(), allClients.end() ), allClients.end() );
     return allClients;
 }
@@ -122,19 +137,25 @@ bool commandHandler::joinCommand(client usr, vector<string> msg){
 
     if(msg.size() >= 2){
         string channelName = msg[1];
-        if(!checkChannel(channelName)){
-            shared_ptr<channel> ch = make_shared<channel>(channel(channelName));
-            channelList.push_back(ch);
-        }
-        if(!channelHasClient(channelName,usr)){
-            getChannel(channelName)->addClient(usr);
-            cout << "User " << usr.getNick() << " added to " << channelName << endl;
-            usr.getSock()->sendString("You have been added to channel: " + channelName);
-            return true;
+        if(channelName[0] == '#' || channelName[0] == '&'){
+
+            if(!checkChannel(channelName)){
+                shared_ptr<channel> ch = make_shared<channel>(channel(channelName));
+                channelList.push_back(ch);
+            }
+            if(!channelHasClient(channelName,usr)){
+                getChannel(channelName)->addClient(usr);
+                cout << "User " << usr.getNick() << " added to " << channelName << endl;
+                usr.getSock()->sendString("You have been added to channel: " + channelName);
+                return true;
+            }
+            else{
+                usr.getSock()->sendString("You are already in channel: " + channelName);
+                return false;
+            }
         }
         else{
-            usr.getSock()->sendString("You are already in channel: " + channelName);
-            return false;
+            usr.getSock()->sendString("Could not find/create channel, channel names begin with # or &"); 
         }
     }
     usr.getSock()->sendString("Invalid arguments for /JOIN");
@@ -231,15 +252,19 @@ bool commandHandler::whoCommand(client usr, vector<string> msg){
         vector<client> allClients = getAllClients();
         vector<client>::iterator clIter;
         for(clIter = allClients.begin();clIter != allClients.end();advance(clIter,1)){
-            usr.getSock()->sendString(clIter.getNick());
+            usr.getSock()->sendString(clIter->getNick());
         }
         return true;
     }
-    else:
+    else{
+        regex e("(*)(" + msg[1] + ")(*)");
         vector<client> allClients = getAllClients();
         vector<client>::iterator clIter;
         for(clIter = allClients.begin();clIter != allClients.end();advance(clIter,1)){
-            if(regex_match(clIter.getNick().begin(),clIter.getNick().end(),msg[1]))
-            usr.getSock()->sendString(clIter.getNick());
+            if(regex_match(clIter->getNick().begin(),clIter->getNick().end(),e))
+            usr.getSock()->sendString(clIter->getNick());
         }
+        return true;
+    }
+    return false;
 }

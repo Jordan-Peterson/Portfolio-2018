@@ -14,6 +14,7 @@ class client{
         inline string getNick(){return nickname;};
         inline string getPass(){return password;};
         inline shared_ptr<tcpUserSocket> getSock(){return clientSocket;};
+        inline bool operator < (client b){if(nickname < b.getNick()){return true;}else{return false;}};
     
     private: 
         string nickname;

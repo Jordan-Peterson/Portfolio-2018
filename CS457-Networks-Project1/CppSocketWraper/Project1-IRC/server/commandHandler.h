@@ -8,7 +8,6 @@
 #include <iostream>
 #include <vector>
 #include <thread>
-#include <sort>
 #include <regex>
 #include "channel.h"
 #include "client.h"
