@@ -5,7 +5,7 @@ clientSocket::clientSocket(uint portNumber):port(portNumber),address("127.0.0.1"
     clientSocket::init();
 };
 
-clientSocket::clientSocket(string networkAddress, uint portNumber){
+clientSocket::clientSocket(string networkAddress, uint portNumber):port(portNumber),address(networkAddress){
     clientSocket::init();
 
 };
@@ -32,7 +32,7 @@ int clientSocket::connectToServer(){ //Got most of this function from geeksforge
     }
 
     //
-    if(inet_pton(AF_INET, "127.0.0.1", &serverAddress.sin_addr)<=0)  
+    if(inet_pton(AF_INET, address.c_str(), &serverAddress.sin_addr)<=0)  
     { 
         printf("\nInvalid address/ Address not supported \n"); 
         return -1; 
