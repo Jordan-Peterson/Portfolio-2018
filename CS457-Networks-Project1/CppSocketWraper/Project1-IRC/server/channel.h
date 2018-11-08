@@ -20,11 +20,14 @@ class channel{
         void sendAll(string msg);
         inline string getTopic(){return topic;};
         inline void setTopic(string tp){topic = tp;};
+        void addPerms(string s);
+        void removePerms(string s);
 
     private:
         string channelName;
         string password;
         string topic;
+        string mode;
         vector<shared_ptr<client>> clients;
 
 };

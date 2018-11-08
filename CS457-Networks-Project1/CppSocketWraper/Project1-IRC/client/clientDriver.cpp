@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <strings.h>
@@ -17,6 +18,7 @@ int port;
 string logFile;
 bool debug = false;
 bool logIt = false;
+time_t t= time(0); 
 
 int recClient(clientSocket& csocket){
     cout << "Start Chatting:" << std::endl;
@@ -25,6 +27,14 @@ int recClient(clientSocket& csocket){
     while (val != 0) 
     {
         tie(msg,val) = csocket.recvString();
+        if(val !=0){
+            vector<string> message;
+            istringstream ss(msg);
+            copy(istream_iterator<string>(ss) ,istream_iterator<string>() ,back_inserter(message));
+            if(message[0] == "[PING]"){
+                csocket.sendString("/PONG " + msg[2]);
+            }
+        }
 
         cout << msg << endl;
        
@@ -105,7 +115,9 @@ int main(int argc, char * argv[]){
         if(input != ""){
             mySocket.sendString(input);
             if(logIt){
-                writeToFile(logFile,input);
+                
+                string message = ctime(&t) + input;
+                writeToFile(logFile,message);
             }
             
         }

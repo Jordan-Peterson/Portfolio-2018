@@ -40,7 +40,7 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
                 else{
                     line += " false";
                 }
-                writeToFile("./db/users.txt","",line);
+                writeToFile("/users.txt","",line);
             }
         }
 
@@ -71,36 +71,36 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
         //lock this
         switch(commandMap.find(command[0])->second){
             case LIST:listCommand(usr,command);break;
-            case AWAY:;
+            case AWAY:awayCommand(usr, command);break;
             case CONNECT:;
             case DIE:;
             case HELP:;
             case INFO:infoCommand(usr,command);break;
-            case INVITE:;
-            case ISON:;
-            case JOIN:joinCommand(usr,command);break;
+            case INVITE:inviteCommand(usr, command);break;
+            case ISON:isonCommand(usr, command);break;
+            case JOIN:joinCommand(usr, command);break;
             case KICK:;
-            case MODE:;
+            case MODE:modeCommand(usr, command);break;
             case NICK:nickCommand(usr,command);break;
-            case NOTICE:;
+            case NOTICE:noticeCommand(usr, command);break;
             case PART:partCommand(usr,command);break;
             case OPER:;
             case PASS:passCommand(usr,command);break;
-            case PING:;
-            case PONG:;
+            case PING:pingCommand(usr, command);break;
+            case PONG:pongCommand(usr, command);break;
             case PRIVMSG:privmsgCommand(usr,command);break;
             case QUIT:quitCommand(usr,command);break;
             case RESTART:;
-            case RULES:;
-            case SETNAME:;
+            case RULES:rulesCommand(usr, command);break;
+            case SETNAME:setnameCommand(usr, command);break;
             case SILENCE:;
-            case TIME:;
+            case TIME:timeCommand(usr, command);break;
             case TOPIC:topicCommand(usr, command);break;
             case USER:;
             case USERHOST:;
-            case USERIP:;
+            case USERIP:userIpCommand(usr, command);break;
             case USERS:;
-            case VERSION:;
+            case VERSION:versionCommand(usr, command);break;
             case WALLOPS:;
             case WHO:;
             case WHOIS:;
@@ -151,7 +151,7 @@ vector<shared_ptr<client>> commandHandler::getAllClients(){
 void commandHandler::removeChannel(string channelName){
     
     channelList.erase(getChannel(channelName));
-    writeToFile("./db/channels.txt",channelName,"");
+    writeToFile("/channels.txt",channelName,"");
         
 }
 
@@ -171,12 +171,47 @@ bool commandHandler::checkChannel(string channelName){
 }
 
 vector<channel>::iterator commandHandler::getChannel(string channelName){
-    vector<channel>::iterator chIter;
-    for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
-        if(chIter->getChannelName() == channelName){
-            return chIter;
+     channelList.clear();
+     vector<vector<string>> channels;
+        ifstream channelsIn(dbPath + "/channels.txt");
+        string temp;
+        getline(channelsIn,temp);
+        while (!channelsIn.eof()) {
+            istringstream buf(temp);
+            std::istream_iterator<string> beg(buf), end;
+            vector<string> line(beg,end);
+            channels.push_back(line);
+            getline(channelsIn,temp);
         }
-    }
+
+     for(int i = 0; i < channels.size();++i){
+        channel ch = channel(channels.at(i).at(0));
+        if(channels.at(i).at(channels.size()-1) != "@"){
+            ch.setPassword(channels.at(i).at(channels.size()-1));
+        }
+        if(channels.at(i).size() > 3){
+            string topic="";
+            for(int k = 1;k < channels.at(i).size()-1;k++){
+                if(k == channels.at(i).size()-2){
+                    topic += channels.at(i).at(k);
+                }
+                else{
+                    topic += channels.at(i).at(k) + " ";
+                }
+            }
+            ch.setTopic(topic);  
+        }
+        else{
+            ch.setTopic(channels.at(i).at(1));
+        }
+        channelList.push_back(ch);
+        }
+        vector<channel>::iterator chIter;
+        for(chIter = channelList.begin();chIter != channelList.end();advance(chIter,1)){
+            if(chIter->getChannelName() == channelName){
+                return chIter;
+            }
+        }
     return chIter;
 }
 
@@ -195,7 +230,7 @@ bool commandHandler::channelHasClient(string channelName,shared_ptr<client> cl){
 
 vector<string> commandHandler::checkUser(shared_ptr<client> usr){
     clientList.clear();
-    ifstream usersIn("./db/users.txt");
+    ifstream usersIn(dbPath + "/users.txt");
         string temp;
         getline(usersIn,temp);
         while (!usersIn.eof()) {
@@ -216,8 +251,8 @@ vector<string> commandHandler::checkUser(shared_ptr<client> usr){
 
 bool commandHandler::writeToFile(string file, string check, string newline){
 
-        ifstream openFile(file);
-        ofstream newFile(file + ".new");
+        ifstream openFile(dbPath + file);
+        ofstream newFile(dbPath + file + ".new");
         string temp;
         getline(openFile,temp);
             while (!openFile.eof()) {
@@ -238,7 +273,7 @@ bool commandHandler::writeToFile(string file, string check, string newline){
         }
         openFile.close();
         newFile.close();
-        string name = file + ".new";
+        string name = dbPath + file + ".new";
         rename(name.c_str(),file.c_str());
 
     return true;
@@ -254,7 +289,7 @@ bool commandHandler::joinCommand(shared_ptr<client> usr, vector<string> msg){
             if(!checkChannel(channelName)){
                 channel ch = channel(channel(channelName));
                 channelList.push_back(ch);
-                writeToFile("./db/channels.txt","",channelName);
+                writeToFile("/channels.txt","",channelName);
             }
             if(!channelHasClient(channelName,usr)){
                 (*getChannel(channelName)).addClient(usr);
@@ -338,7 +373,7 @@ bool commandHandler::nickCommand(shared_ptr<client> usr, vector<string> msg){
         else{
             ban = "false";
         }
-        writeToFile("./db/users.txt",oldName, usr->getNick() + " " + usr->getPass() + " " + usr->getLevel() + " " + ban);
+        writeToFile("/users.txt",oldName, usr->getNick() + " " + usr->getPass() + " " + usr->getLevel() + " " + ban);
         string response = "user nickname changed from: " + oldName + " to: " + usr->getNick();
         cout << response << endl;
         thread t1(&tcpUserSocket::sendString,usr->getSock(),response,true);
@@ -410,6 +445,8 @@ bool commandHandler::whoCommand(shared_ptr<client> usr, vector<string> msg){
 bool commandHandler::privmsgCommand(shared_ptr<client> usr, vector<string> msg){
     
     string toClient = msg[1];
+    msg.erase(msg.begin());
+    msg.erase(msg.begin());
     string message = convertMsgtoString(msg);
     thread t1(&tcpUserSocket::sendString,usr->getSock(),"{" + usr->getNick() + "}" + message,true);
     t1.join();
@@ -432,7 +469,7 @@ bool commandHandler::passCommand(shared_ptr<client> usr, vector<string> msg){
         else{
             ban = "false";
         }
-        writeToFile("./db/users.txt",usr->getNick(),usr->getNick() + " " + msg[1] + " " + usr->getLevel() + " " + ban);
+        writeToFile("/users.txt",usr->getNick(),usr->getNick() + " " + msg[1] + " " + usr->getLevel() + " " + ban);
         thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: password set",true);
         t1.join();
         return true;
@@ -451,9 +488,208 @@ bool commandHandler::quitCommand(shared_ptr<client> usr, vector<string> msg){
             chIter->removeClient(usr);
         }
     }
-    writeToFile("./db/users.txt",usr->getNick(),"");
+    
+    writeToFile("/users.txt",usr->getNick(),"");
     thread t(&tcpUserSocket::sendString,usr->getSock(),"You have left JPIRC, See you soon!",true);
     t.join();
     usr->getSock()->closeSocket();
+    return true;
+}
+
+bool commandHandler::timeCommand(shared_ptr<client> usr, vector<string> msg){
+    time_t tim = time(0);
+    thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server Time]: " + string(ctime(&tim)),true);
+    t.join();
+    return true;
+}
+
+bool commandHandler::awayCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() > 1){
+        msg.erase(msg.begin());
+        string message = convertMsgtoString(msg);
+        usr->setAwayReply(message);
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: you have set your away message to: " + message,true);
+        t.join();
+        return true;
+    }
+    else{
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: your away message is: " + usr->getAwayReply(),true);
+        t.join();
+        return false;
+    }
+}
+
+bool commandHandler::pingCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() == 2){
+        if(msg[1] == serverSocket.getIP()){
+            thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: PONG!",true);
+            t1.join();
+            return true;
+        }
+        else{
+            string toClient = msg[1];
+            thread t2(&tcpUserSocket::sendString,getClient(toClient)->getSock(),"[PING] from: " + usr->getNick(),true);
+            t2.join();
+            return true;
+        }
+    }
+    else{
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid arguments for /PING. follow with the serve or a user.",true);
+        t.join();
+        return false;
+    }
+}
+
+
+bool commandHandler::pongCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() == 2){
+        string toClient = msg[1];
+        thread t(&tcpUserSocket::sendString,getClient(toClient)->getSock(),"[PONG] from: " + usr->getNick(),true);
+    }
+}
+
+bool commandHandler::isonCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() >= 2){
+        msg.erase(msg.begin());
+        vector<string> names;
+        for(string c: msg){
+            if(getClient(c) != NULL){
+                names.push_back(c);
+            }
+        }
+        thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: online - " + convertMsgtoString(names),true);
+        t1.join();
+        return true;
+    }
+    else{
+        thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid arguments for /ISON, provide at least one nickname.",true);
+        t3.join();
+        return false;
+    }
+}
+
+
+bool commandHandler::modeCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() == 3){
+        if(getChannel(msg[1]) != channelList.end()){
+            string channelName = msg[1];
+            string perms = msg[2];
+            if(perms[0] == '+'){
+                getChannel(channelName)->addPerms(perms);
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: added " + perms + " modes to channel " + channelName,true);
+                t2.join();
+                return true;
+            }
+            else if(perms[0] == '-'){
+                getChannel(channelName)->removePerms(perms);
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: removed " + perms + " modes from channel " + channelName,true);
+                t2.join();
+                return true;
+            }
+            else{
+                thread t4(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /MODE, + or - to add or remove modes preceeded by channel.",true);
+                t4.join();
+                return false;
+            }
+        }
+        else if(getClient(msg[1]) != NULL){
+            string clientName = msg[1];
+            string perms = msg[2];
+            if(perms[0] == '+'){
+                getClient(clientName)->addPerms(perms);
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: added " + perms + " modes to " + clientName,true);
+                t2.join();
+                return true;
+            }
+            else if(perms[0] == '-'){
+                getChannel(clientName)->removePerms(perms);
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: removed " + perms + " modes from " + clientName,true);
+                t2.join();
+                return true;
+            }
+            else{
+                thread t4(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /MODE, + or - to add or remove modes preceeded by channel or nickname.",true);
+                t4.join();
+                return false;
+            }
+        
+        }
+
+    }
+    else{
+            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /MODE, + or - to add or remove modes preceeded by channel.",true);
+            t3.join();
+            return false;
+        }
+}
+
+bool commandHandler::inviteCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() >2){
+        string channelName = msg[1];
+        vector<string>::iterator clIter = msg.begin();
+        advance(clIter,1);
+        for(;clIter != msg.end();advance(clIter,1)){
+            if(getClient(*clIter) != NULL){
+                thread t(&tcpUserSocket::sendString,getClient(*clIter)->getSock(),"{" + usr->getNick() + "}: Hey! you should join channel: " + channelName,true);
+                t.join();
+            }
+        }
+        return true;
+    }
+    thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid arguments for /INVITE, state channel and 1 or more nicknames.",true);
+    t.join();
+    return false;
+}
+
+bool commandHandler::noticeCommand(shared_ptr<client> usr, vector<string> msg){
+    string toClient = msg[1];
+    string message = convertMsgtoString(msg);
+    thread t1(&tcpUserSocket::sendString,usr->getSock(),"{" + usr->getNick() + "}" + message,true);
+    t1.join();
+    return true;
+}
+
+bool commandHandler::versionCommand(shared_ptr<client> usr, vector<string> msg){
+    thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Server version is: 1.0",true);
+    t.join();
+    return true;
+}
+
+bool commandHandler::setnameCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() > 1){
+        string s;
+        msg.erase(msg.begin());
+        s = convertMsgtoString(msg);
+        usr->setFullName(s);
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: full name has been set to: " + s,true);
+        t.join();
+        return true;
+    }
+    else{
+            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /SETNAME",true);
+            t3.join();
+            return false;
+        }   
+}
+
+bool commandHandler::userIpCommand(shared_ptr<client> usr, vector<string> msg){
+    if(msg.size() == 2){
+        string ip = getClient(msg[1])->getSock()->getIP();
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: user: " + msg[1] + " has ip address: " + ip,true);
+        t.join();
+        return true;
+    }
+    else{
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid arguments for /USERIP. provide 1 nickname",true);
+        t.join();
+        return false;
+    }
+}
+
+
+bool commandHandler::rulesCommand(shared_ptr<client> usr, vector<string> msg){
+    string rules = "These are the rules for JP-IRC:\n 1. No Advertisements allowed\n 2. Be on your best behavior\n 3. The admins are always watching\n 4. Have fun!"; 
+    thread t(&tcpUserSocket::sendString, usr->getSock(),rules,true);
+    t.join();
     return true;
 }

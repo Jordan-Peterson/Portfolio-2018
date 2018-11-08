@@ -10,6 +10,7 @@
 #include <vector>
 #include <thread>
 #include <regex>
+#include <ctime>
 #include "channel.h"
 #include "client.h"
 #include "tcpServerSocket.h"
@@ -30,8 +31,10 @@ class commandHandler{
         shared_ptr<client> getClient(string name);
         vector<shared_ptr<client>> getAllClients();
         inline vector<channel> getChannelList(){return channelList;};
+        inline void addClient(shared_ptr<client> c){clients.push_back(c);};
         inline void setClientList(vector<vector<string>> users){clientList = users;};
         inline void setChannelList(vector<channel> ch){channelList = ch;};
+        inline void setdbPath(string s){dbPath = s;};
         
     private:
         bool checkChannel(string channelName);
@@ -48,10 +51,23 @@ class commandHandler{
         bool privmsgCommand(shared_ptr<client> usr, vector<string> msg);
         bool passCommand(shared_ptr<client> usr, vector<string> msg);
         bool quitCommand(shared_ptr<client> usr, vector<string> msg);
+        bool timeCommand(shared_ptr<client> usr, vector<string> msg);
+        bool awayCommand(shared_ptr<client> usr, vector<string> msg);
+        bool pingCommand(shared_ptr<client> usr, vector<string> msg);
+        bool pongCommand(shared_ptr<client> usr, vector<string> msg);
+        bool isonCommand(shared_ptr<client> usr, vector<string> msg);
+        bool modeCommand(shared_ptr<client> usr, vector<string> msg);
+        bool inviteCommand(shared_ptr<client> usr, vector<string> msg);
+        bool noticeCommand(shared_ptr<client> usr, vector<string> msg);
+        bool versionCommand(shared_ptr<client> usr, vector<string> msg);
+        bool setnameCommand(shared_ptr<client> usr, vector<string> msg);
+        bool userIpCommand(shared_ptr<client> usr, vector<string> msg);
+        bool rulesCommand(shared_ptr<client> usr, vector<string> msg);
 
         enum mtype {NONE,LIST,AWAY,CONNECT,DIE,HELP,INFO,INVITE,ISON,JOIN,KICK,KILL,KNOCK,MODE,NICK,NOTICE,PART,OPER,PASS,PING,PONG,PRIVMSG,QUIT,RESTART,RULES,SETNAME,SILENCE,TIME,TOPIC,USER,USERHOST,USERIP,USERS,VERSION,WALLOPS,WHO,WHOIS};
         unordered_map<string, mtype>commandMap = {{"/LIST",LIST},{"/AWAY",AWAY},{"/CONNECT",CONNECT},{"/DIE",DIE},{"/HELP",HELP},{"/INFO",INFO},{"/INVITE",INVITE},{"/ISON",ISON},{"/JOIN",JOIN},{"/KICK",KICK},{"/KILL",KILL},{"/KNOCK",KNOCK},{"/LIST",LIST},{"/MODE",MODE},{"/NICK",NICK},{"/NOTICE",NOTICE},{"/PART",PART},{"/OPER",OPER},{"/PASS",PASS},{"/PING",PING},{"/PONG",PONG},{"/PRIVMSG",PRIVMSG},{"/QUIT",QUIT},{"/RESTART",RESTART},{"/RULES",RULES},{"/SETNAME",SETNAME},{"/SILENCE",SILENCE},{"/TIME",TIME},{"/TOPIC",TOPIC},{"/USER",USER},{"/USERHOST",USERHOST},{"/USERIP",USERIP},{"/USERS",USERS},{"/VERSION",VERSION},{"/WALLOPS",WALLOPS},{"/WHO",WHO},{"/WHOIS",WHOIS}};
         
+        string dbPath;
         vector<channel> channelList;
         vector<shared_ptr<client>> clients;
         vector<vector<string>> clientList;

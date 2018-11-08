@@ -29,6 +29,7 @@ class tcpUserSocket
         int closeSocket(); 
         std::tuple<string,ssize_t> recvString(int bufferSize=4096,bool useMutex = true);
         void setUserInfoIPv4(string clientAddress,uint16_t port);
+        inline string getIP(){return clientAddressIPv4;};
 
         ssize_t sendString(const string & data,bool useMutex = true);
         string getUniqueIdentifier();

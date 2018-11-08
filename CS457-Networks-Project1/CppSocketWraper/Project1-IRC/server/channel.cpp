@@ -43,3 +43,22 @@ void channel::sendAll(string msg){
         clIter->get()->getSock()->sendString(msg);
     }
 }
+
+void channel::addPerms(string s){
+    string::iterator sIter = s.begin();
+    for(;sIter != s.end();advance(sIter,1)){
+        if(mode.find_first_of(*sIter) == string::npos){
+            mode += *sIter;
+        }
+    }
+
+}
+
+void channel::removePerms(string s){
+    string::iterator sIter = s.begin();
+    for(;sIter != s.end();advance(sIter,1)){
+        if(mode.find_first_of(*sIter) != string::npos){
+            mode.erase(sIter);
+        }
+    }
+}

@@ -81,7 +81,7 @@ int initServer(){
         }
 
         //Read in banner.txt
-        ifstream bannerIn("./db/banner.txt");
+        ifstream bannerIn(dbPath + "/banner.txt");
         string bannerTemp;
         getline(bannerIn,bannerTemp);
         while (!bannerIn.eof()) {
@@ -90,12 +90,12 @@ int initServer(){
         }
 
         //Read in banusers.txt
-        ifstream banusersIn("./db/banusers.txt");
+        ifstream banusersIn(dbPath + "/banusers.txt");
         
         copy(istream_iterator<string>(banusersIn), istream_iterator<string>(), back_inserter(banusers));
 
         //Read in channels.txt
-        ifstream channelsIn("./db/channels.txt");
+        ifstream channelsIn(dbPath + "/channels.txt");
         string temp;
         getline(channelsIn,temp);
         while (!channelsIn.eof()) {
@@ -107,7 +107,7 @@ int initServer(){
         }
 
         //Read in users.txt
-        ifstream usersIn("./db/users.txt");
+        ifstream usersIn(dbPath + "/users.txt");
         
         getline(usersIn,temp);
         while (!usersIn.eof()) {
@@ -151,6 +151,8 @@ int initServer(){
 
     handler->setClientList(users);
 
+    handler->setdbPath(dbPath);
+
     //Set up the socket to listen
     cout << "Binding Socket" << std::endl; 
     mysocket.bindSocket(); 
@@ -175,6 +177,7 @@ int main(int argc, char * argv[])
         cout << "value for accept is " << val << std::endl; 
         cout << "Socket Accepted" << std::endl; 
         shared_ptr<client> c = make_shared<client>(clientSocket);
+        handler->addClient(c);
         unique_ptr<thread> t = make_unique<thread>(cclient,c,id,handler); 
         threadList.push_back(std::move(t)); 
         
