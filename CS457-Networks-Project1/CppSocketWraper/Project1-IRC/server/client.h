@@ -17,6 +17,10 @@ class client{
         inline void setFirst(bool f){first = f;};
         inline void setNickSet(bool n){nickset = n;};
         inline void setPassSet(bool p){passset = p;};
+        inline void setFullName(string n){fullname = n;};
+        void addPerms(string s);
+        void removePerms(string s);
+        inline string getFullName(){return fullname;};
         inline string getNick(){return nickname;};
         inline string getPass(){return password;};
         inline string getAwayReply(){return autoreply;};
@@ -29,10 +33,12 @@ class client{
         inline bool operator < (client b){if(nickname < b.getNick()){return true;}else{return false;}};
     
     private: 
+        string fullname;
         string nickname;
         string password;
         string level;
         string autoreply;
+        string mode;
         bool banned;
 
         bool first = true;
