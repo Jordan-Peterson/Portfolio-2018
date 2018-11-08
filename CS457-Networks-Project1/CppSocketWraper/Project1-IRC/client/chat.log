@@ -63,3 +63,109 @@ Thu Nov  8 10:40:58 2018
 /QUIT
 Thu Nov  8 10:43:01 2018
 /QUIT
+Thu Nov  8 12:14:17 2018
+/HELP
+Thu Nov  8 12:14:17 2018
+/NICK n
+Thu Nov  8 12:14:17 2018
+/PASS p
+Thu Nov  8 12:14:17 2018
+/HELP
+Thu Nov  8 12:14:17 2018
+/RULES
+Thu Nov  8 12:14:17 2018
+/LIST
+Thu Nov  8 12:14:17 2018
+#j hey guys
+Thu Nov  8 12:14:17 2018
+/JOIN #j
+Thu Nov  8 12:14:17 2018
+#j Hey guys
+Thu Nov  8 12:14:17 2018
+/JOIN #g
+Thu Nov  8 12:14:17 2018
+#g Hey u guys
+Thu Nov  8 12:14:17 2018
+/JOIN #general
+Thu Nov  8 12:14:17 2018
+#general hey you guys
+Thu Nov  8 12:22:33 2018
+/NICK mubmo
+Thu Nov  8 12:22:33 2018
+/PASS asdf
+Thu Nov  8 12:22:33 2018
+/LIST
+Thu Nov  8 12:22:33 2018
+/JOIN #g
+Thu Nov  8 12:22:33 2018
+#g hey
+Thu Nov  8 12:22:33 2018
+#g hey
+Thu Nov  8 12:22:33 2018
+/PART #g
+Thu Nov  8 12:22:33 2018
+/PART #j
+Thu Nov  8 12:22:33 2018
+/LIST
+Thu Nov  8 12:22:33 2018
+/PART #g
+Thu Nov  8 12:22:33 2018
+/LIST
+Thu Nov  8 12:22:33 2018
+/PART #gj
+Thu Nov  8 12:22:33 2018
+/QUIT
+Thu Nov  8 12:28:43 2018
+/NICK mack
+Thu Nov  8 12:28:43 2018
+/P mils
+Thu Nov  8 12:28:43 2018
+/PASS mils
+Thu Nov  8 12:28:43 2018
+/LIST
+Thu Nov  8 12:28:43 2018
+/JOIN #j
+Thu Nov  8 12:28:43 2018
+/TOPIC
+Thu Nov  8 12:31:40 2018
+/PASS sdf
+Thu Nov  8 12:31:40 2018
+/NICK msdf
+Thu Nov  8 12:31:40 2018
+/LIST
+Thu Nov  8 12:31:40 2018
+/JOIN #j
+Thu Nov  8 12:31:40 2018
+/LIST
+Thu Nov  8 12:31:40 2018
+/TOPIC
+Thu Nov  8 12:31:40 2018
+/TOPIC #j
+Thu Nov  8 12:31:40 2018
+#j hey everyone in #j
+Thu Nov  8 12:31:40 2018
+/PART #j
+Thu Nov  8 12:31:40 2018
+/LIST
+Thu Nov  8 12:31:40 2018
+/JOIN #j
+Thu Nov  8 12:31:40 2018
+/JOIN #g
+Thu Nov  8 12:31:40 2018
+#g hey in e
+Thu Nov  8 12:31:40 2018
+/PRIVMSG msdf yoooo you wont believe this
+Thu Nov  8 12:31:40 2018
+/HELP
+Thu Nov  8 12:31:40 2018
+/RULSE
+Thu Nov  8 12:31:40 2018
+/RULES
+Thu Nov  8 12:31:40 2018
+/INFO
+Thu Nov  8 12:31:40 2018
+/PING 127.0.0.1
+Thu Nov  8 12:31:40 2018
+/PONG msdf
+Thu Nov  8 12:31:40 2018
+/QUIT

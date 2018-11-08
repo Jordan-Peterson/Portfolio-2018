@@ -1,0 +1,131 @@
+JP-IRC README
+~~~~~~~~~~~~~
+
+Table of Contents:
+
+1. Client
+    1.1 Introduction
+    1.2 Client Initiation
+2. Server
+    2.1 Inroduction
+    2.2 Server Initiation
+3. Commands
+4. Usage
+
+
+1. Client
+---------
+
+
+    1.1 Introduction
+    
+The client is the user's only view into the IRC. Though the client, 
+the user must register themselves by providing a nickname and a password
+to identify the user. The client has a sending and receiving thread in order
+to mitigate collisions when reading from the server and writing to the server.
+
+After the user registers/logs into the IRC, they have access to create, join, and leave
+chat rooms. The user can be a part of many chat rooms and also private message others online.
+
+
+    1.2 Initiation
+
+When the client starts up, it reads through the configuation file "chatclient.conf".
+From this file the client knows the last server that it connected to and what
+port it was connected to as well. The client is also populated with options 
+for debuging and logging. If the config file sets logging, then the client will
+log everything that the user types to the server. After the bookkeeping is over
+the client will try to connect to the server and initiate the chatroom experience.
+
+
+2. Server
+---------
+
+
+    2.1 Introduction
+
+The server is the linch-pin of the chat room. It organizes the clients and
+provides services based off of commands that the user passes to the server.
+Along with providing user connectivity information, the server allows the 
+users to be unique as each one will have a their own nickname to identify them.
+The server has the responsibility to log and document the current users and channels
+in case of a sudden shutdown. This is handled in the initiation.
+
+
+    2.2 Initiation
+
+When the server shutsdown, it needs to keep a memory of the final state of the server.
+It accomplishes this through a few log files that it alters in real time as the 
+state of the chat rooms and users evolve.
+
+Similar to the client, the server also has a configuration file "chatserver.conf" which leads
+the server in setting up the sever socket with an ip address and a couple ports to use.
+
+Also similar to the client, the server is multitheaded to handle many clients at once.
+
+
+3. Commands
+-----------
+
+<channel> <message to send> ................Send a message to a channel you are a part of
+
+/NICK <nickname> ...........................Set the users nickname
+
+/PASS <password> ...........................Set the users password
+
+/JOIN <channel> ............................If the channel doesn't exist, this creates a new one
+                                            If the channel exists, the user is added to the channel
+
+/PART <channel> ............................Removes a user from a channel
+                                            If the user was the last client in the channel, the channel is deleted
+
+/INFO  .....................................Look at the server information like ip address and port
+
+/LIST  .....................................Look at all the channels on the server
+
+/TOPIC <channel> [<description>] ...........Look at the topic of a channel, or change the topic of a channel
+
+/TIME  .....................................Get the local time of the server
+
+/AWAY  [<away message>] ....................Look at or set the away message of the user
+
+/PING  <server ip> .........................Send a ping message to the server
+
+/PONG  .....................................Reply to a ping message
+
+/ISON  <nickname> [<nickname>...] ..........Query if a group of users are online
+
+/MODE  <+,-[o,p,s,i,t,n,m,l,...] ...........Change the mode of a channel or user
+
+/INVITE <channel> <nickname> ...............Invite a user to a channel
+
+/NOTICE <nickname> <notice message> ........Send a notice to a user
+
+/SETNAME <full name> .......................Set the full name of a user
+
+/VERSION....................................Display the version of the server
+
+/WHOIP <nickname> ..........................Get the ip address of a user
+
+/RULES  ....................................List the rules of JP-IRC
+
+/PRIVMSG <nickname> <private message> ......Send a private message to a user
+
+/QUIT   ....................................Exit the client
+
+/HELP   ....................................Display this file
+
+
+
+4. Usage
+--------
+
+1. Open the "Server" and "Client" folders in visual studio code.
+
+2. Press Ctr + Shift + B on the server first.
+
+3. Wait until the server spins up and advertises that it is listening.
+
+4. Press Ctr + Shift + B on the client.
+
+5. When the banner pops up and you are connected, you can start chatting and using commands.
