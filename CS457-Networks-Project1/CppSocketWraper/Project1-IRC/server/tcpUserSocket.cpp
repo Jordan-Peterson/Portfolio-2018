@@ -21,9 +21,12 @@ int tcpUserSocket::getSocket()
 {
     return userSocket;
 }; 
+
 int tcpUserSocket::closeSocket()
 {
-    return close(userSocket);
+    shutdown(userSocket, SHUT_RDWR);
+    close(userSocket);
+    return 0;
 }; 
 
 void tcpUserSocket::setUserInfoIPv4(string address, uint16_t port)
