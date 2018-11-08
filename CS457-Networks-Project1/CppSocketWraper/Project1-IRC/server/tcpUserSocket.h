@@ -13,6 +13,7 @@
 #include <vector> 
 #include <memory> 
 #include <mutex>
+#include <iostream>
 
 
 using namespace std; 
@@ -34,11 +35,11 @@ class tcpUserSocket
         
 
     private:
-    struct sockaddr_in userAddress; 
-    int userSocket; 
-    string clientAddressIPv4; 
-    uint16_t clientPortIPv4;
-    mutex sendMutex;
-    mutex recvMutex; 
+        struct sockaddr_in userAddress; 
+        int userSocket; 
+        string clientAddressIPv4; 
+        uint16_t clientPortIPv4;
+        mutex sendMutex;
+        mutex recvMutex; 
 };
 #endif

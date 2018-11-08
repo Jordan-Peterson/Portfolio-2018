@@ -82,6 +82,11 @@ ssize_t clientSocket::sendString(const string & data)
     rval = send(serverSocket, &stringBuffer[0], bufferSize, 0);
 
     return rval;
-}
+};
 
+void clientSocket::closeConnection(){
+    shutdown(serverSocket, SHUT_RDWR);
+    close(serverSocket);
+    serverSocket = 0;
+};
 

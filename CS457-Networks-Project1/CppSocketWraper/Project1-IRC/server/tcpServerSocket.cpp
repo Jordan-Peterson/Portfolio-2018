@@ -1,5 +1,3 @@
-#include <netinet/in.h> 
-#include <arpa/inet.h>
 #include "tcpServerSocket.h"
 #include "tcpUserSocket.h"
 

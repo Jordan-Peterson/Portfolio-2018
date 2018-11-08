@@ -6,17 +6,17 @@
 using namespace std;
 
 int recClient(clientSocket& csocket){
-    cout << "Waiting for message from Server " << std::endl;
-    string msg;
-    ssize_t val;
-    bool cont =true ; 
-    while (cont) 
+    cout << "Start Chatting:" << std::endl;
+    string msg = "";
+    ssize_t val = -1;
+    while (val != 0) 
     {
         tie(msg,val) = csocket.recvString();
 
         cout << msg << endl;
        
     }
+    cout << "Thread returning" << endl;
     return 1; 
 }
 
@@ -28,17 +28,16 @@ int main(int argc, char * argv[]){
     thread recThread(recClient, ref(mySocket)); 
 
     string input = "";
-
-    while(input != "EXIT"){
+    
+    while(input != "/QUIT"){
 
         getline(cin,input);
         
         if(input != ""){
             mySocket.sendString(input);
         }
-
     }
-    
+
     recThread.join();
 
     cout << "Closing Client" << endl;

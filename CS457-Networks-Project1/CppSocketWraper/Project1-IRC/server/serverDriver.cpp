@@ -15,42 +15,21 @@ using namespace std;
 
 bool ready = true; 
 
-int cclient(client usr,int id,commandHandler& handler)
+int cclient(shared_ptr<client> usr,int id,commandHandler& handler)
 {
 
     cout << "Waiting for message from Client Thread" << id << std::endl;
     string msg;
-    ssize_t val;
-    bool cont =true ;  
-    while (cont) 
+    ssize_t val =0;
+    while (val != -1) 
     {
-        tie(msg,val) = usr.getSock().get()->recvString();
-        
-        handler.handleCommand(handler.splitMsg(msg),usr);
+        tie(msg,val) = usr->getSock().get()->recvString();
 
-        if (msg.substr(0,4) == "EXIT")
-            cont = false; 
-       
-        cout << "[SERVER] The client is sending message " << msg << " -- With value return = " << val << endl;
-        
-         if (msg.substr(0,6) == "SERVER")
-        {
-            thread childTExit(&tcpUserSocket::sendString,usr.getSock().get(),"GOODBYE EVERYONE",false);
-            thread childTExit2(&tcpUserSocket::sendString,usr.getSock().get(),"\n",false);
-            ready = false;   
-            cont = false;   
-            childTExit.join(); 
-            childTExit2.join();
-        }
-        else
-        {
-            cout << "waiting for another message" << endl; 
+        if(val != -1){
+            handler.handleCommand(handler.splitMsg(msg),usr);
         }
     }
-
-    usr.getSock().get()->sendString("goodbye"); 
-    
-    usr.getSock().get()->closeSocket(); 
+    cout << "disconnecting Thread: " << id << endl; 
     return 1; 
 }
 
@@ -66,17 +45,17 @@ int main(int argc, char * argv[])
     cout << "Waiting to Accept Socket" << std::endl;
     int id = 0; 
     vector<unique_ptr<thread>> threadList;
-
-    commandHandler handler(mysocket);
+    shared_ptr<vector<shared_ptr<channel>>> chlist = make_shared<vector<shared_ptr<channel>>>();
+    commandHandler handler(mysocket,chlist);
   
     while (ready)
     { 
         shared_ptr<tcpUserSocket> clientSocket;
-        int val; 
+        int val =0; 
         tie(clientSocket,val) = mysocket.acceptSocket();
         cout << "value for accept is " << val << std::endl; 
         cout << "Socket Accepted" << std::endl; 
-        client c = client(clientSocket);
+        shared_ptr<client> c = make_shared<client>(clientSocket);
         unique_ptr<thread> t = make_unique<thread>(cclient,c,id,ref(handler)); 
         threadList.push_back(std::move(t)); 
         
