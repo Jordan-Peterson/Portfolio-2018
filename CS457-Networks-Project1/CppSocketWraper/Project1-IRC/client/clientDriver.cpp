@@ -27,11 +27,13 @@ int recClient(clientSocket& csocket){
     while (val != 0) 
     {
         tie(msg,val) = csocket.recvString();
-        vector<string> message;
-        istringstream ss(msg);
-        copy(istream_iterator<string>(ss) ,istream_iterator<string>() ,back_inserter(message));
-        if(message[0] == "[PING]"){
-            csocket.sendString("/PONG " + msg[2]);
+        if(val !=0){
+            vector<string> message;
+            istringstream ss(msg);
+            copy(istream_iterator<string>(ss) ,istream_iterator<string>() ,back_inserter(message));
+            if(message[0] == "[PING]"){
+                csocket.sendString("/PONG " + msg[2]);
+            }
         }
 
         cout << msg << endl;

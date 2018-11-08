@@ -445,6 +445,8 @@ bool commandHandler::whoCommand(shared_ptr<client> usr, vector<string> msg){
 bool commandHandler::privmsgCommand(shared_ptr<client> usr, vector<string> msg){
     
     string toClient = msg[1];
+    msg.erase(msg.begin());
+    msg.erase(msg.begin());
     string message = convertMsgtoString(msg);
     thread t1(&tcpUserSocket::sendString,usr->getSock(),"{" + usr->getNick() + "}" + message,true);
     t1.join();
@@ -486,12 +488,7 @@ bool commandHandler::quitCommand(shared_ptr<client> usr, vector<string> msg){
             chIter->removeClient(usr);
         }
     }
-    vector<shared_ptr<client>>::iterator clIter = clients.begin();
-    for(;clIter != clients.end();advance(clIter,1)){
-        if(getClient(clIter->get()->getNick()) != NULL){
-            clients.erase(clIter);
-        }
-    }
+    
     writeToFile("/users.txt",usr->getNick(),"");
     thread t(&tcpUserSocket::sendString,usr->getSock(),"You have left JPIRC, See you soon!",true);
     t.join();
@@ -516,14 +513,16 @@ bool commandHandler::awayCommand(shared_ptr<client> usr, vector<string> msg){
         return true;
     }
     else{
-        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: your away message is: " + usr->getAwayReply());
+        thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: your away message is: " + usr->getAwayReply(),true);
+        t.join();
+        return false;
     }
 }
 
 bool commandHandler::pingCommand(shared_ptr<client> usr, vector<string> msg){
     if(msg.size() == 2){
         if(msg[1] == serverSocket.getIP()){
-            thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: PONG!");
+            thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: PONG!",true);
             t1.join();
             return true;
         }
@@ -615,13 +614,13 @@ bool commandHandler::modeCommand(shared_ptr<client> usr, vector<string> msg){
             }
         
         }
-        else{
+
+    }
+    else{
             thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /MODE, + or - to add or remove modes preceeded by channel.",true);
             t3.join();
             return false;
         }
-
-    }
 }
 
 bool commandHandler::inviteCommand(shared_ptr<client> usr, vector<string> msg){
@@ -665,7 +664,12 @@ bool commandHandler::setnameCommand(shared_ptr<client> usr, vector<string> msg){
         thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: full name has been set to: " + s,true);
         t.join();
         return true;
-    }   
+    }
+    else{
+            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invalid argument for /SETNAME",true);
+            t3.join();
+            return false;
+        }   
 }
 
 bool commandHandler::userIpCommand(shared_ptr<client> usr, vector<string> msg){

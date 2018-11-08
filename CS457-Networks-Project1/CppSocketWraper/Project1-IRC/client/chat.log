@@ -17,3 +17,49 @@ Thu Nov  8 05:48:20 2018
 /NICK n
 Thu Nov  8 05:48:20 2018
 /QUIT
+Thu Nov  8 10:28:50 2018
+/hey
+Thu Nov  8 10:28:50 2018
+/NICK jordan
+Thu Nov  8 10:28:50 2018
+/PASS mypass
+Thu Nov  8 10:28:50 2018
+/LIST
+Thu Nov  8 10:28:50 2018
+/ISON
+Thu Nov  8 10:28:50 2018
+/ISON mike
+Thu Nov  8 10:28:50 2018
+/PING
+Thu Nov  8 10:28:50 2018
+/PING 127.0.0.1
+Thu Nov  8 10:28:50 2018
+/USERIP jordan
+Thu Nov  8 10:28:50 2018
+/AWAY
+Thu Nov  8 10:28:50 2018
+/AWAY I'm now away
+Thu Nov  8 10:28:50 2018
+/AWAY
+Thu Nov  8 10:28:50 2018
+/PRIVMSG jordan hey
+Thu Nov  8 10:28:50 2018
+/TIME
+Thu Nov  8 10:28:50 2018
+/INVITE jordan #g
+Thu Nov  8 10:28:50 2018
+/JOIN #g
+Thu Nov  8 10:28:50 2018
+/INVITE #g jordan
+Thu Nov  8 10:28:50 2018
+/MODE #g +m
+Thu Nov  8 10:28:50 2018
+/MODE #g -m
+Thu Nov  8 10:28:50 2018
+/MODE #g
+Thu Nov  8 10:28:50 2018
+/QUIT
+Thu Nov  8 10:40:58 2018
+/QUIT
+Thu Nov  8 10:43:01 2018
+/QUIT
