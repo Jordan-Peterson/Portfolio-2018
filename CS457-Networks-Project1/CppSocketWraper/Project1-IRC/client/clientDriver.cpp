@@ -6,6 +6,7 @@
 #include <iterator>
 #include <iostream>
 #include <thread>
+#include <ctime>
 #include "clientSocket.h"
 
 using namespace std;
@@ -52,7 +53,7 @@ void initClient(){
             }
         }
         else if(conf.at(i) == "log"){
-            if(conf.at(i+1) == "true"){
+            if(conf.at(i+1) == "True"){
                 logIt = true;
             }
             else{
@@ -66,10 +67,30 @@ void initClient(){
     
 }
 
+bool writeToFile(string file, string newline){
+
+        ifstream openFile(file);
+        ofstream newFile(file + ".new");
+        string temp;
+        getline(openFile,temp);
+            while (!openFile.eof()) {
+                newFile << temp << endl;
+                getline(openFile,temp);
+            }
+        newFile << newline << endl;
+        
+        openFile.close();
+        newFile.close();
+        string name = file + ".new";
+        rename(name.c_str(),file.c_str());
+
+    return true;
+
+}
+
 int main(int argc, char * argv[]){
 
     initClient();
-    cout << ip << endl;
     clientSocket mySocket(ip,port);
     mySocket.connectToServer();
     
@@ -83,6 +104,9 @@ int main(int argc, char * argv[]){
         
         if(input != ""){
             mySocket.sendString(input);
+            if(logIt){
+                writeToFile(logFile,input);
+            }
             
         }
     }

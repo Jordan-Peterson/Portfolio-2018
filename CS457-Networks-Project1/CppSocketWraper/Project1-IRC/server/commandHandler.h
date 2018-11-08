@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include <unordered_map>
 #include <iostream>
 #include <vector>
@@ -24,6 +25,7 @@ class commandHandler{
         void handleCommand(vector<string> command,shared_ptr<client> usr);
         vector<string> splitMsg(string msg);
         string convertMsgtoString(vector<string> msg);
+        bool writeToFile(string file, string check, string line);
         vector<channel>::iterator getChannel(string channelName);
         shared_ptr<client> getClient(string name);
         vector<shared_ptr<client>> getAllClients();

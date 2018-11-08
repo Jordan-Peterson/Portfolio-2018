@@ -30,10 +30,10 @@ class client{
     
     private: 
         string nickname;
-        string password = "";
-        string level = "user";
-        string autoreply = "";
-        bool banned = false;
+        string password;
+        string level;
+        string autoreply;
+        bool banned;
 
         bool first = true;
         bool nickset = false;

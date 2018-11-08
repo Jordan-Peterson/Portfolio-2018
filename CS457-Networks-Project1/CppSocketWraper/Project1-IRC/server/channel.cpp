@@ -1,7 +1,7 @@
 #include "channel.h"
 #include <iterator>
 
-channel::channel(string name):channelName(name),topic(""),password(""){}
+channel::channel(string name):channelName(name),topic("Default Topic"),password("@"){}
 
 bool channel::addClient(shared_ptr<client> c){
     //lock_guard<mutex> lock(alter);

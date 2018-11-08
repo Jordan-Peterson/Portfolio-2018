@@ -20,7 +20,7 @@ tcpServerSocket mysocket(0);
 vector<unique_ptr<thread>> threadList;
 shared_ptr<commandHandler> handler;
 
-vector<string> banner;
+string banner;
 vector<string> banusers;
 vector<vector<string>> channels;
 vector<string> conf;
@@ -30,14 +30,14 @@ string dbPath;
 
 int cclient(shared_ptr<client> usr,int id,shared_ptr<commandHandler> handler)
 {
-
+    thread thread(&tcpUserSocket::sendString,usr->getSock(),banner,true);
+    thread.join();
     cout << "Waiting for message from Client Thread" << id << std::endl;
     string msg;
     ssize_t val =0;
     while (val != -1) 
     {
         tie(msg,val) = usr->getSock().get()->recvString();
-        cout << val << endl;
         if(val != -1){
             handler->handleCommand(handler->splitMsg(msg),usr);
         }
@@ -82,8 +82,12 @@ int initServer(){
 
         //Read in banner.txt
         ifstream bannerIn("./db/banner.txt");
-
-        copy(istream_iterator<string>(bannerIn), istream_iterator<string>(), back_inserter(banner));
+        string bannerTemp;
+        getline(bannerIn,bannerTemp);
+        while (!bannerIn.eof()) {
+            banner += bannerTemp + "\n";
+            getline(bannerIn,bannerTemp);
+        }
 
         //Read in banusers.txt
         ifstream banusersIn("./db/banusers.txt");
