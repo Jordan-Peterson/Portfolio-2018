@@ -107,8 +107,6 @@ Also similar to the client, the server is multitheaded to handle many clients at
 
 /WHOIP <nickname> ..........................Get the ip address of a user
 
-/WHO [<channel> or <string to check against>] ...........Get a list of all the users whose nickname contains a given string
-
 /RULES  ....................................List the rules of JP-IRC
 
 /PRIVMSG <nickname> <private message> ......Send a private message to a user

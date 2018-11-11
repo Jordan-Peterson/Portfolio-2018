@@ -1,3 +1,3 @@
-me q user true
-jack  user false
-nick pdiddy user false
+
+jack @ user false
+Anonymous q user false

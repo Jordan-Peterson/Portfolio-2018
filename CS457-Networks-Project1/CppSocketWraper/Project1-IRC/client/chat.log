@@ -169,3 +169,219 @@ Thu Nov  8 12:31:40 2018
 /PONG msdf
 Thu Nov  8 12:31:40 2018
 /QUIT
+Sat Nov 10 16:51:54 2018
+/NICK jack
+Sat Nov 10 16:51:54 2018
+/PASS pdiddy
+Sat Nov 10 16:51:54 2018
+/NICK nick
+Sat Nov 10 16:51:54 2018
+/NICK mike
+Sat Nov 10 16:51:54 2018
+/WHO mi
+Sat Nov 10 16:51:54 2018
+/WHO
+Sat Nov 10 17:07:11 2018
+/JOIN
+Sat Nov 10 17:07:11 2018
+/NICK nick
+Sat Nov 10 17:07:11 2018
+/PASS pdiddy
+Sat Nov 10 17:07:11 2018
+/NICK nick
+Sat Nov 10 17:07:11 2018
+/WHO
+Sat Nov 10 17:09:58 2018
+/NICK nick
+Sat Nov 10 17:09:58 2018
+/PASS pdid
+Sat Nov 10 17:09:58 2018
+/NICK nick
+Sat Nov 10 17:09:58 2018
+/PASS pdiddy
+Sat Nov 10 17:09:58 2018
+/NICK nick
+Sat Nov 10 17:09:58 2018
+/WHO
+Sat Nov 10 17:09:58 2018
+/WHO ni
+Sat Nov 10 17:09:58 2018
+/WHO bi
+Sat Nov 10 17:09:58 2018
+/WHO b
+Sat Nov 10 17:13:55 2018
+/JOIN
+Sat Nov 10 17:13:55 2018
+/NICK nick
+Sat Nov 10 17:13:55 2018
+/PASS pdiddy
+Sat Nov 10 17:13:55 2018
+/NICK nick
+Sat Nov 10 17:13:55 2018
+he
+Sat Nov 10 17:13:55 2018
+/ISON
+Sat Nov 10 17:13:55 2018
+/ISON nick
+Sat Nov 10 17:13:55 2018
+/WHO nick
+Sat Nov 10 17:13:55 2018
+/WHO
+Sat Nov 10 17:13:55 2018
+/WHO ni
+Sat Nov 10 17:13:55 2018
+/WHO ck
+Sat Nov 10 17:13:55 2018
+/WHO bi
+Sat Nov 10 17:13:55 2018
+/WHO bk
+Sat Nov 10 17:13:55 2018
+/WHO kcin
+Sat Nov 10 17:13:55 2018
+/RULES
+Sat Nov 10 17:13:55 2018
+/HELP
+Sat Nov 10 17:13:55 2018
+/QUIT
+Sat Nov 10 17:27:24 2018
+/JOIN #g
+Sat Nov 10 17:27:24 2018
+/NICK jack
+Sat Nov 10 17:27:24 2018
+/NICK me
+Sat Nov 10 17:27:24 2018
+/PASS q
+Sat Nov 10 17:27:24 2018
+/NICK me
+Sat Nov 10 17:27:24 2018
+/HELP
+Sat Nov 10 17:27:24 2018
+/INFO
+Sat Nov 10 17:27:24 2018
+/JOIN #g
+Sat Nov 10 17:27:24 2018
+/JOIN #f
+Sat Nov 10 17:36:13 2018
+/NICK jack
+Sat Nov 10 17:36:13 2018
+/JOIN #g
+Sat Nov 10 17:36:13 2018
+/JOIN #f
+Sat Nov 10 17:36:13 2018
+/PASS p
+Sat Nov 10 17:36:13 2018
+/JOIN #g
+Sat Nov 10 17:36:13 2018
+/JOIN /=#f
+Sat Nov 10 17:36:13 2018
+/JOIN #f
+Sat Nov 10 17:36:13 2018
+/PASS p
+Sat Nov 10 17:36:13 2018
+/NICK mike
+Sat Nov 10 17:41:38 2018
+/PASS p
+Sat Nov 10 17:41:38 2018
+/NICK mike
+Sat Nov 10 17:43:46 2018
+/PASS p
+Sat Nov 10 17:43:46 2018
+/NICK mike
+Sat Nov 10 17:45:58 2018
+/PASS p
+Sat Nov 10 17:45:58 2018
+/NICK mike
+Sat Nov 10 17:47:30 2018
+/PASS p
+Sat Nov 10 17:47:30 2018
+/NICK mike
+Sat Nov 10 17:48:50 2018
+/PASS p
+Sat Nov 10 17:48:50 2018
+/NICK mike
+Sat Nov 10 17:51:32 2018
+/PASS p
+Sat Nov 10 17:51:32 2018
+/NICK mike
+Sat Nov 10 17:53:00 2018
+/PASS p
+Sat Nov 10 17:53:00 2018
+/NICK mike
+Sat Nov 10 17:57:22 2018
+/PASS p
+Sat Nov 10 17:57:22 2018
+/NICK n
+Sat Nov 10 17:57:22 2018
+/JOIN #f
+Sat Nov 10 18:00:09 2018
+/JOIN #g
+Sat Nov 10 18:00:09 2018
+/NICK me
+Sat Nov 10 18:00:09 2018
+/PASS q
+Sat Nov 10 18:00:09 2018
+/NICK me
+Sat Nov 10 18:00:09 2018
+/NICK jack
+Sat Nov 10 18:00:09 2018
+/PASS @
+Sat Nov 10 18:00:09 2018
+/HELP
+Sat Nov 10 18:00:09 2018
+/JOIN #g
+Sat Nov 10 18:00:09 2018
+/JOIN #f
+Sat Nov 10 18:00:09 2018
+/PART #f
+Sat Nov 10 18:00:09 2018
+/INFO
+Sat Nov 10 18:00:09 2018
+/WHOIP me
+Sat Nov 10 18:00:09 2018
+/WHO me
+Sat Nov 10 18:00:09 2018
+/WHO #f
+Sat Nov 10 18:00:09 2018
+/WHO e
+Sat Nov 10 18:00:09 2018
+/WHO m
+Sat Nov 10 18:00:09 2018
+/LIST
+Sat Nov 10 18:00:09 2018
+/TOPIC #g
+Sat Nov 10 18:00:09 2018
+/TOPIC #j
+Sat Nov 10 18:00:09 2018
+/TIME
+Sat Nov 10 18:00:09 2018
+/AWAY
+Sat Nov 10 18:00:09 2018
+/AWAY im away
+Sat Nov 10 18:00:09 2018
+/PING
+Sat Nov 10 18:00:09 2018
+/PING 127.0.0.1
+Sat Nov 10 18:00:09 2018
+/ISON me jack mike
+Sat Nov 10 18:00:09 2018
+/MODE +o me
+Sat Nov 10 18:00:09 2018
+/MODE #g +o
+Sat Nov 10 18:00:09 2018
+/PRIVMSG me
+Sat Nov 10 18:00:09 2018
+/PRIVMSG me hi this is me
+Sat Nov 10 18:00:09 2018
+#g hey all
+Sat Nov 10 18:00:09 2018
+/INVITE #g me
+Sat Nov 10 18:00:09 2018
+/SETNAME jordan peterson
+Sat Nov 10 18:00:09 2018
+/RULES
+Sat Nov 10 18:00:09 2018
+/VERSION
+Sat Nov 10 18:00:09 2018
+/QUIT
+Sat Nov 10 18:09:44 2018
+/QUIT
