@@ -39,16 +39,16 @@ class Node:
 	## Give one value to each node connected to self.
 	## Subtract the number of connected edges from self value.
 	def pushOnEdge(self):
-		self.nodeValue -= len(edges)
-		for e in edges:
-			e.nodeValue += 1
+		self.nodeValue -= len(self.edges)
+		for e in self.edges:
+			e.setVal(e.getVal() + 1)
 
 	## Get one value from each connected node.
 	## add the number of connected edges to self value.
 	def pullOnEdge(self):
-		self.nodeValue += len(edges)
-		for e in edges:
-			e.nodeValue -= 1
+		self.nodeValue += len(self.edges)
+		for e in self.edges:
+			e.setVal(e.getVal() - 1)
 
 ## Generate a random solvable graph.
 ## "Solvable" satisfies the equation V - E + 1 = G where sum(all nodes) >= G
@@ -77,10 +77,10 @@ def generateGraph(gSize):
 ## Take a generated connected graph and populate each node with random values between 100,-100
 def populateGraph(graph,gs):
 
-	## Random numbers range from -10 to 10 for a basic use case
+	## Random numbers range from -100 to 100 for a basic use case
 	while(summation(graph) <= 0 or summation(graph) == gs):
 		for i in range(0,len(graph)-1):
-			graph.get(i).setVal(random.randint(-5,5))
+			graph.get(i).setVal(random.randint(-100,100))
 	return graph
 
 ## Add up all the values in a graph and return the sum
@@ -163,10 +163,7 @@ if __name__ == "__main__":
 	i = 5
 	j = 0
 	graphs = []
-	while i < 1000000:
-		if(j // 100 == 0):
-			i += 1
-			print(i)
+	while i < 100:
 		g = generateGraph(i)
 		while not isConnected(g):
 			g = generateGraph(i)
@@ -174,13 +171,16 @@ if __name__ == "__main__":
 		g = populateGraph(g,0)
 		while(not isSolvable(g,random.randint(0,10))):
 			g = populateGraph(g,summation(g))
-
-		with open("graphs.pickle",'rb') as f:
-			try:
-				graphs = pickle.load(f)
-			except EOFError:
-				graphs = []
-			graphs.append(g)
-		with open("graphs.pickle",'wb') as wf:
-			pickle.dump(graphs,wf)
+			
+		if(j % 100 == 0):
+			with open("graphs.pickle",'rb') as f:
+				try:
+					graphs = pickle.load(f)
+				except EOFError:
+					graphs = []
+				graphs.append(g)
+			with open("graphs.pickle",'wb') as wf:
+				pickle.dump(graphs,wf)
+			i += 1
+			print(i)
 		j +=1
