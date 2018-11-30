@@ -1,2 +1,1 @@
-#g null @
-#j topic @
+#general null, @

@@ -54,7 +54,7 @@ int initServer(){
 
         ifstream confIn("chatserver.conf");
         copy(istream_iterator<string>(confIn), istream_iterator<string>(), back_inserter(conf));
-
+        
         //populate dbpath
         dbPath = conf[3];
 
@@ -79,7 +79,7 @@ int initServer(){
                 i++;
             }
         }
-
+        
         //Read in banner.txt
         ifstream bannerIn(dbPath + "/banner.txt");
         string bannerTemp;
