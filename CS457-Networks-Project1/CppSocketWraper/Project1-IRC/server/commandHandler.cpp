@@ -26,13 +26,19 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
             usr->setFirst(false);
             vector<string> clientInfo = checkUser(usr);
             if(clientInfo.size() != 0){
-                cout << "found user" << endl;
-                usr->setLevel(clientInfo.at(2));
-                if(clientInfo.at(3) == "true"){
-                    usr->setBanned(true);
+                if(clientInfo.at(0) == ""){
+
+                }
+                else{
+                    cout << "found user" << endl;
+                    getClient(usr->getNick())->setSock(usr->getSock());
+                    
+                    thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Welcome back " + usr->getNick() +", enjoy your stay! ",true);
+                    t1.join();
                 }
             }
             else{
+                usr->setLevel("user");
                 string line = usr->getNick() + " " + usr->getPass() + " " + usr->getLevel();
                 if(usr->getBanned()){
                     line += " true"; 
@@ -40,7 +46,11 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
                 else{
                     line += " false";
                 }
+                addClient(usr);
                 writeToFile("users.txt","",line);
+
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Welcome " + usr->getNick() +", you have registered a new account!",true);
+                t2.join();
             }
         }
 
@@ -56,8 +66,8 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
                 vector<shared_ptr<client>> clients = channel.getClients();
                 vector<shared_ptr<client>>::iterator clIter;
                 for(clIter = clients.begin();clIter != clients.end();advance(clIter,1)){
-                    string s = "[" + channel.getChannelName() + "] " + clIter->get()->getNick() + ": " + message;
-                    thread t1(&tcpUserSocket::sendString,usr->getSock(),s,true);
+                    string s = "[" + channel.getChannelName() + "] " + usr->getNick() + ": " + message;
+                    thread t1(&tcpUserSocket::sendString,clIter->get()->getSock(),s,true);
                     t1.join();
                 }
             }
@@ -151,7 +161,7 @@ vector<shared_ptr<client>> commandHandler::getAllClients(){
 void commandHandler::removeChannel(string channelName){
     
     channelList.erase(getChannel(channelName));
-    writeToFile("channels.txt",channelName," ");
+    writeToFile("channels.txt",channelName,"");
         
 }
 
@@ -194,21 +204,20 @@ bool commandHandler::channelHasClient(string channelName,shared_ptr<client> cl){
 }
 
 vector<string> commandHandler::checkUser(shared_ptr<client> usr){
-    clientList.clear();
-    ifstream usersIn(dbPath + "users.txt");
-        string temp;
-        getline(usersIn,temp);
-        while (!usersIn.eof()) {
-            istringstream buf(temp);
-            istream_iterator<string> beg(buf), end;
-            vector<string> line(beg,end);
-            clientList.push_back(line);
-            getline(usersIn,temp);
-        }
     vector<vector<string>>::iterator usersIter;
     for(usersIter = clientList.begin();usersIter != clientList.end();advance(usersIter,1)){
         if(usersIter->at(0) == usr->getNick()){
-            return *usersIter;
+            if(usersIter->at(1) == usr->getPass()){
+                return *usersIter;
+            }
+            else{
+                string response = "[Server]: User nickname taken! Please try another";
+                thread t1(&tcpUserSocket::sendString,usr->getSock(),response,true);
+                t1.join();
+                vector<string> ret = vector<string>();
+                ret.push_back("");
+                return ret;   
+            }
         }
     }
     return vector<string>();
@@ -325,20 +334,9 @@ bool commandHandler::listCommand(shared_ptr<client> usr, vector<string> msg){
 bool commandHandler::nickCommand(shared_ptr<client> usr, vector<string> msg){
     if(msg.size() >= 2){
         string oldName = usr->getNick();
-        usr->setNick(msg[1]);
-        vector<string> clientInfo = checkUser(usr);
-        if(clientInfo.size() > 0){
-            if(usr->getPass() == clientInfo[1]){
-                thread t(&tcpUserSocket::sendString, usr->getSock(),"[Server]: welcome back " + usr->getNick(),true);
-                t.join();
-            }
-            else{
-                thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Nickname taken, try /PASS first or choose another please.",true);
-                t1.join();
-                usr->setNick(oldName);
-                return false;
-            }
-        }
+        msg.erase(msg.begin());
+        usr->setNick(convertMsgtoString(msg));
+        
         string response = "[Server]: User nickname changed from: " + oldName + " to: " + usr->getNick();
         thread t1(&tcpUserSocket::sendString,usr->getSock(),response,true);
         t1.join();
@@ -444,7 +442,6 @@ bool commandHandler::quitCommand(shared_ptr<client> usr, vector<string> msg){
         }
     }
     
-    writeToFile("users.txt",usr->getNick(),"");
     thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: You have left JPIRC, See you soon!",true);
     t.join();
     usr->getSock()->closeSocket();

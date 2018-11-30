@@ -16,16 +16,13 @@ CONFIG += c++14
 SOURCES += main.cpp\
         chatclient.cpp \
     clientSocket.cpp \
-    tcpServer.cpp \
     recthread.cpp
 
 HEADERS  += chatclient.h \
     clientSocket.h \
-    tcpServer.h \
     recthread.h
 
 FORMS    += chatclient.ui
 
 DISTFILES += chatclient.conf \
-    chat.log \
-    display.log
+    chat.log

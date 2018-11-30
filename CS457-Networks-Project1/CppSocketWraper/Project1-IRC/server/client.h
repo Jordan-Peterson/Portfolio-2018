@@ -30,6 +30,7 @@ class client{
         inline bool getNickSet(){return nickset;};
         inline bool getPassSet(){return passset;};
         inline shared_ptr<tcpUserSocket> getSock(){return clientSocket;};
+        inline void setSock(shared_ptr<tcpUserSocket> s){clientSocket = s;};
         inline bool operator < (client b){if(nickname < b.getNick()){return true;}else{return false;}};
     
     private: 

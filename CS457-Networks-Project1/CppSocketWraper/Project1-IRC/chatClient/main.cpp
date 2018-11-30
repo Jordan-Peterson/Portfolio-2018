@@ -29,35 +29,13 @@ bool debug = false;
 bool logIt = false;
 time_t t= time(0);
 QString path = "";
-/*
-int recClient(ChatClient& w){
-    cout << "Start Chatting:" << std::endl;
-    w.show();
-    string msg = "";
-    ssize_t val = -1;
-    while (val != 0)
-    {
-        tie(msg,val) = w.getSock().recvString();
-        if(val !=0){
-            vector<string> message;
-            istringstream ss(msg);
-            copy(istream_iterator<string>(ss) ,istream_iterator<string>() ,back_inserter(message));
-            if(message[0] == "[PING]"){
-                w.getSock().sendString("/PONG " + msg[2]);
-            }
-        }
 
-        cout << msg;
 
-    }
-    cout << "Thread returning" << endl;
-    return 1;
-}
-*/
+
 void initClient(){
-
-    path.append(QString("/chatclient.conf"));
-    QFile file(path);
+    QString tmpPath = path;
+    tmpPath.append(QString("/chatclient.conf"));
+    QFile file(tmpPath);
     if(!file.open(QIODevice::ReadOnly)) {
         QMessageBox::information(0, "error", file.errorString());
     }
@@ -70,8 +48,7 @@ void initClient(){
         conf << fields;
     }
 
-   // ifstream confIn("./chatclient.conf");
-   // copy(istream_iterator<string>(confIn), istream_iterator<string>(), back_inserter(conf));
+
     for(int i = 0;i < conf.size();i++){
         if(conf.at(i) == "last_server_used"){
             ip = conf.at(i+1);
@@ -112,22 +89,6 @@ bool writeToFile(QString file, string newline){
     // optional, as QFile destructor will already do it:
     fileOut.close();
 
-    /*
-        ifstream openFile(file);
-        ofstream newFile(file + ".new");
-        string temp;
-        getline(openFile,temp);
-            while (!openFile.eof()) {
-                newFile << temp << endl;
-                getline(openFile,temp);
-            }
-        newFile << newline << endl;
-
-        openFile.close();
-        newFile.close();
-        string name = file + ".new";
-        rename(name.c_str(),file.c_str());
-*/
     return true;
 
 }
@@ -141,7 +102,7 @@ int main(int argc, char * argv[]){
     shared_ptr<clientSocket> socketptr = make_shared<clientSocket>(ip.toStdString(),port);
     socketptr->connectToServer();
 
-    ChatClient w(0,socketptr);
+    ChatClient w(0,socketptr,path);
     w.startRecThread();
     w.show();
 

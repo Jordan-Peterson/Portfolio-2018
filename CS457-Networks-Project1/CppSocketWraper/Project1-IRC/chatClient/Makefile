@@ -51,19 +51,16 @@ OBJECTS_DIR   = ./
 SOURCES       = main.cpp \
 		chatclient.cpp \
 		clientSocket.cpp \
-		tcpServer.cpp \
 		recthread.cpp moc_chatclient.cpp \
 		moc_recthread.cpp
 OBJECTS       = main.o \
 		chatclient.o \
 		clientSocket.o \
-		tcpServer.o \
 		recthread.o \
 		moc_chatclient.o \
 		moc_recthread.o
 DIST          = chatclient.conf \
 		chat.log \
-		display.log \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -124,11 +121,9 @@ DIST          = chatclient.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
 		chatClient.pro chatclient.h \
 		clientSocket.h \
-		tcpServer.h \
 		recthread.h main.cpp \
 		chatclient.cpp \
 		clientSocket.cpp \
-		tcpServer.cpp \
 		recthread.cpp
 QMAKE_TARGET  = chatClient
 DESTDIR       = #avoid trailing-slash linebreak
@@ -299,8 +294,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents chatclient.h clientSocket.h tcpServer.h recthread.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp chatclient.cpp clientSocket.cpp tcpServer.cpp recthread.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents chatclient.h clientSocket.h recthread.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp chatclient.cpp clientSocket.cpp recthread.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents chatclient.ui $(DISTDIR)/
 
 
@@ -328,10 +323,12 @@ compiler_moc_header_make_all: moc_chatclient.cpp moc_recthread.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_chatclient.cpp moc_recthread.cpp
 moc_chatclient.cpp: clientSocket.h \
+		recthread.h \
 		chatclient.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/jordan-chr/workspace/portfolio/Portfolio-2018/CS457-Networks-Project1/CppSocketWraper/Project1-IRC/chatClient -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include chatclient.h -o moc_chatclient.cpp
 
-moc_recthread.cpp: recthread.h
+moc_recthread.cpp: clientSocket.h \
+		recthread.h
 	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/jordan-chr/workspace/portfolio/Portfolio-2018/CS457-Networks-Project1/CppSocketWraper/Project1-IRC/chatClient -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include recthread.h -o moc_recthread.cpp
 
 compiler_moc_source_make_all:
@@ -353,21 +350,21 @@ compiler_clean: compiler_moc_header_clean compiler_uic_clean
 ####### Compile
 
 main.o: main.cpp chatclient.h \
-		clientSocket.h
+		clientSocket.h \
+		recthread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o main.cpp
 
 chatclient.o: chatclient.cpp chatclient.h \
 		clientSocket.h \
+		recthread.h \
 		ui_chatclient.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o chatclient.o chatclient.cpp
 
 clientSocket.o: clientSocket.cpp clientSocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o clientSocket.o clientSocket.cpp
 
-tcpServer.o: tcpServer.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o tcpServer.o tcpServer.cpp
-
-recthread.o: recthread.cpp recthread.h
+recthread.o: recthread.cpp recthread.h \
+		clientSocket.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o recthread.o recthread.cpp
 
 moc_chatclient.o: moc_chatclient.cpp 
