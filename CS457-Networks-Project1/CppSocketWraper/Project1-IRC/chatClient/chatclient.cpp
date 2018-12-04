@@ -55,3 +55,4 @@ void ChatClient::startRecThread(){
         connect(workerThread, SIGNAL(finished()), workerThread, SLOT(deleteLater()));
         workerThread->start();
 }
+

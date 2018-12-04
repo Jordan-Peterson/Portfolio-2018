@@ -4,3 +4,5 @@ jim passs user false
 jack jaky user false
 PinHeadLarry pins user false
 DirtyDan dan user false
+lolo n user false
+michael mikey user false

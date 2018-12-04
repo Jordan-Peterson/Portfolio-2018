@@ -62,3 +62,39 @@
 [Thu Nov 29 21:24:33 2018]: /QUIT
 [Thu Nov 29 21:24:44 2018]: #TheWildWest What a baby!
 [Thu Nov 29 21:24:49 2018]: /QUIT
+[Fri Nov 30 09:47:12 2018]: /NICK nick
+[Fri Nov 30 09:47:16 2018]: /PASS papp
+[Fri Nov 30 09:47:33 2018]: /QUIT
+[Sat Dec  1 17:55:19 2018]: /NICK mike
+[Sat Dec  1 17:55:25 2018]: /PASS pp
+[Sat Dec  1 17:55:35 2018]: /NICK jack
+[Sat Dec  1 17:55:57 2018]: /LIST
+[Sat Dec  1 17:56:09 2018]: /JOIN #general
+[Sat Dec  1 17:56:13 2018]: /LIST
+[Sat Dec  1 17:56:25 2018]: #general hello general chat
+[Sat Dec  1 17:56:39 2018]: /PART #general
+[Sat Dec  1 17:56:44 2018]: /LIST
+[Sat Dec  1 17:56:52 2018]: #general hello 
+[Sat Dec  1 17:57:08 2018]: /NICK lolo
+[Sat Dec  1 17:57:22 2018]: /PASS n
+[Sat Dec  1 17:57:41 2018]: /PRIVMSG jack hey jack this is lolo
+[Sat Dec  1 18:01:22 2018]: /NICK
+[Sat Dec  1 18:01:30 2018]: /NICK jack
+[Sat Dec  1 18:01:36 2018]: /PASS pp
+[Sat Dec  1 18:01:43 2018]: /NICK nick
+[Sat Dec  1 18:01:51 2018]: /PASS papp
+[Sat Dec  1 18:02:06 2018]: /NICK lolo
+[Sat Dec  1 18:02:10 2018]: /PASS p
+[Sat Dec  1 18:02:22 2018]: /NICK wilma
+[Sat Dec  1 18:02:31 2018]: /PASS mypass
+[Sat Dec  1 18:02:35 2018]: /WHO
+[Sat Dec  1 18:02:53 2018]: /PRIVMSG nick hello nick this is wilma
+[Sat Dec  1 18:04:43 2018]: /NICK jack
+[Sat Dec  1 18:04:47 2018]: /PASS jacky
+[Sat Dec  1 18:05:04 2018]: /NICK steve
+[Sat Dec  1 18:05:09 2018]: /PASS s
+[Sat Dec  1 18:05:17 2018]: /NICK michael
+[Sat Dec  1 18:05:24 2018]: /PASS mikey
+[Sat Dec  1 18:05:36 2018]: /WHO
+[Sat Dec  1 18:05:45 2018]: /WHO
+[Sat Dec  1 18:06:04 2018]: /PRIVMSG steve hello steve

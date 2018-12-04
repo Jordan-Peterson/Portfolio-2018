@@ -23,13 +23,13 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
 
         if(usr->getNickSet() && usr->getPassSet()){
 
-            usr->setFirst(false);
             vector<string> clientInfo = checkUser(usr);
             if(clientInfo.size() != 0){
                 if(clientInfo.at(0) == ""){
 
                 }
                 else{
+                    usr->setFirst(false);
                     cout << "found user" << endl;
                     getClient(usr->getNick())->setSock(usr->getSock());
                     
@@ -38,6 +38,7 @@ void commandHandler::handleCommand(vector<string> command,shared_ptr<client> usr
                 }
             }
             else{
+                usr->setFirst(false);
                 usr->setLevel("user");
                 string line = usr->getNick() + " " + usr->getPass() + " " + usr->getLevel();
                 if(usr->getBanned()){
@@ -409,8 +410,10 @@ bool commandHandler::privmsgCommand(shared_ptr<client> usr, vector<string> msg){
     msg.erase(msg.begin());
     msg.erase(msg.begin());
     string message = convertMsgtoString(msg);
-    thread t1(&tcpUserSocket::sendString,usr->getSock(),"{" + usr->getNick() + "}" + message,true);
+    thread t1(&tcpUserSocket::sendString,getClient(toClient)->getSock(),"{" + usr->getNick() + "}: " + message,true);
     t1.join();
+    thread t2(&tcpUserSocket::sendString,usr->getSock(),"{" + usr->getNick() + "}: " + message,true);
+    t2.join();
     return true;
     
 }

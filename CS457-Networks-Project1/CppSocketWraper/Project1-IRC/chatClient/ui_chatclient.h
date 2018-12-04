@@ -41,7 +41,7 @@ public:
     {
         if (ChatClient->objectName().isEmpty())
             ChatClient->setObjectName(QStringLiteral("ChatClient"));
-        ChatClient->resize(411, 325);
+        ChatClient->resize(413, 327);
         centralWidget = new QWidget(ChatClient);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         lineEdit = new QLineEdit(centralWidget);
@@ -66,7 +66,7 @@ public:
         ChatClient->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(ChatClient);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 411, 19));
+        menuBar->setGeometry(QRect(0, 0, 413, 19));
         ChatClient->setMenuBar(menuBar);
         statusBar = new QStatusBar(ChatClient);
         statusBar->setObjectName(QStringLiteral("statusBar"));
