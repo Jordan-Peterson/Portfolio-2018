@@ -745,3 +745,28 @@
 [Sun Dec  9 15:16:58 2018]: /WHO
 [Sun Dec  9 15:17:04 2018]: /WHO
 [Sun Dec  9 15:17:18 2018]: /QUIT
+[Sun Dec  9 16:09:01 2018]: genera hello
+[Sun Dec  9 16:09:07 2018]: random_tal hello
+[Sun Dec  9 16:09:31 2018]: /NICK nick
+[Sun Dec  9 16:09:34 2018]: /PASS p
+[Sun Dec  9 16:09:36 2018]: /CONNECT
+[Sun Dec  9 16:09:41 2018]: genera hello
+[Sun Dec  9 16:11:51 2018]: /NICK nick
+[Sun Dec  9 16:11:53 2018]: /PASS p
+[Sun Dec  9 16:11:56 2018]: /CONNECT
+[Sun Dec  9 16:12:06 2018]: genera hello
+[Sun Dec  9 16:22:44 2018]: /CONNECT
+[Sun Dec  9 16:22:47 2018]: /NICK nick
+[Sun Dec  9 16:22:51 2018]: /CONNECT
+[Sun Dec  9 16:22:55 2018]: /PASS p
+[Sun Dec  9 16:22:58 2018]: /CONNECT
+[Sun Dec  9 16:23:05 2018]: #general hello
+[Sun Dec  9 16:23:09 2018]: &random_talk hi
+[Sun Dec  9 16:23:22 2018]: /PART &random
+[Sun Dec  9 16:23:45 2018]: /PART &random_talk
+[Sun Dec  9 16:23:51 2018]: /LIST
+[Sun Dec  9 16:23:58 2018]: /JOIN &random_talk
+[Sun Dec  9 16:24:01 2018]: &random_talk hey
+[Sun Dec  9 16:24:04 2018]: &random_talk QUIT
+[Sun Dec  9 16:24:09 2018]: /QUIT
+[Sun Dec  9 16:24:16 2018]: /QUIT

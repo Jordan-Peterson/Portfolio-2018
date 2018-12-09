@@ -64,7 +64,11 @@ void ChatClient::on_sendButton_clicked()
             if((message.at(0)).toStdString() == "/NICK"){
                 if(message.size() > 1){
                     ui->nicknameLabel->setText("NICKNAME: <b>" + message[1]);
+                    nickSet = true;
                 }
+            }
+            if((message.at(0)).toStdString() == "/PASS"){
+                passSet = true;
             }
 
             if((message.at(0)).toStdString() == "/SETNAME"){
@@ -81,11 +85,6 @@ void ChatClient::on_sendButton_clicked()
                     ui->fullnameLabel->setText("FULLNAME: <b>" + message.join(" "));
                 }
             }
-
-            if((message.at(0)).toStdString() == "/CONNECT"){
-                connected = true;
-            }
-
         }
     }
 
@@ -111,6 +110,15 @@ void ChatClient::handleResults(const QString& msg){
        if(message.size() > 0){
            QString room = message[0];
            QString sent = msg;
+           if(message[0] == "[CONNECTED]:"){
+               connected = true;
+               ui->channelList->addItem(QString::fromStdString("[#general]"));
+               ui->channelList->addItem(QString::fromStdString("[&random_talk]"));
+               chatRooms[QString::fromStdString("[#general]")].append("");
+               chatRooms[QString::fromStdString("[&random_talk]")].append("");
+               mySocket->sendString("/JOIN #general");
+               mySocket->sendString("/JOIN &random_talk");
+           }
            if(message[0] == "[NOTICE]:"){
                 ui->serverNoticeText->insertPlainText(msg + "\n");
                 ui->serverNoticeText->moveCursor(QTextCursor::End);

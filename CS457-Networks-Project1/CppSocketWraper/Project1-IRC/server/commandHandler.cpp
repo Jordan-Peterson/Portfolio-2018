@@ -287,7 +287,7 @@ bool commandHandler::partCommand(shared_ptr<client> usr, vector<string> msg){
                 t2.join();
             }
         }
-        if((*getChannel(channelName)).getClients().size() == 0){
+        if((*getChannel(channelName)).getClients().size() == 0 && channelName != "#general" && channelName != "&random_talk"){
             removeChannel(channelName);
             cout << "channel " + channelName + " has been deleted" <<endl;
         }
@@ -649,7 +649,7 @@ bool commandHandler::noticeCommand(shared_ptr<client> usr, vector<string> msg){
 }
 
 bool commandHandler::versionCommand(shared_ptr<client> usr, vector<string> msg){
-    thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Server version is: 1.0",true);
+    thread t(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Server version is: 2.0",true);
     t.join();
     return true;
 }
@@ -714,14 +714,13 @@ bool commandHandler::connectCommand(shared_ptr<client> usr, vector<string> msg){
             vector<string> clientInfo = checkUser(usr);
             if(clientInfo.size() != 0){
                 if(clientInfo.at(0) == ""){
-
                 }
                 else{
                     usr->setFirst(false);
                     cout << "found user" << endl;
                     getClient(usr->getNick())->setSock(usr->getSock());
                     
-                    thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Welcome back " + usr->getNick() +", enjoy your stay! ",true);
+                    thread t1(&tcpUserSocket::sendString,usr->getSock(),"[CONNECTED]: Welcome back " + usr->getNick() +", enjoy your stay! ",true);
                     t1.join();
                     return true;
                 }
@@ -739,10 +738,13 @@ bool commandHandler::connectCommand(shared_ptr<client> usr, vector<string> msg){
                 addClient(usr);
                 writeToFile("users.txt","",line);
 
-                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Welcome " + usr->getNick() +", you have registered a new account!",true);
+                thread t2(&tcpUserSocket::sendString,usr->getSock(),"[CONNECTED]: Welcome " + usr->getNick() +", you have registered a new account!",true);
                 t2.join();
+                return true;
             }
         }
+            thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Unable to login, try [/NICK or /USER] and /PASS first",true);
+            t2.join();
         return true;
 }
 

@@ -64,8 +64,8 @@ the server in setting up the sever socket with an ip address and a couple ports 
 Also similar to the client, the server is multitheaded to handle many clients at once.
 
 
-3. Commands
------------
+3. Commands Terminal
+--------------------
 
 <channel> <message to send> ................Send a message to a channel you are a part of
 
@@ -115,6 +115,82 @@ Also similar to the client, the server is multitheaded to handle many clients at
 
 /HELP   ....................................Display this file
 
+
+Commands GUI
+------------
+
+Send Messge to Channel:
+* click on the channel name in the channel list section
+* type message into the message box
+
+Send Command:
+* click on Command Center in the channel list section
+* type commands preceeded by '/'
+
+/NICK <desired nickname>........................... set username
+
+/USER <nickname> <full name>....................... set username and full name
+
+/PASS <password>................................... set password
+
+/CONNECT .......................................... attempt to login to the server
+
+/JOIN <channel name>............................... join or create a channel
+
+/PART <channel name>............................... leave a channel
+
+/LIST ............................................. list all of the existing channel
+
+/AWAY ............................................. set account to away mode
+
+/AWAY <message>.................................... set away message
+
+/KILL <nickname>................................... for operators to force a disconnect
+
+/HELP ............................................. display this file
+
+/INFO ............................................. display server information
+
+/INVITE <nickname> <channel>....................... invite a user to join a channel
+
+/ISON <list of nicknames separated by space>....... diplays which of the users listed are online
+
+/KICK <nickname> <channel>......................... channel operators force remove user from channel
+
+/MODE <+/-mode string> [<channel>]................. set user modes or channel modes
+
+/NOTICE <message>.................................. operator sends notice message to everyone connected
+
+/OPER <nickname> <operator password>............... attemp to gain operator permissions
+
+/PING <nickame>.................................... check to see if a user is connected
+
+/PRIVMSG <nickname> <message>...................... send a private message to a user
+
+/QUIT ............................................. disconnect from the server
+
+/RULES ............................................ display server rules
+
+/SETNAME <full name>............................... set your full name
+
+/SILENCE <nickname>................................ if user is not silence, you will not see their messages
+						    if user is silenced, you may see their messages again
+
+/TIME ............................................. display server time
+
+/TOPIC <channel> <topic>........................... set channel topic
+
+/TOPIC <channel>................................... display channel topic
+
+/USERIP <nickname>................................. display users ip address
+
+/VERSION .......................................... display server version
+
+/WALLOPS <message>................................. send a message to all operators
+
+/WHO .............................................. displays all users connected
+
+/WHOIS <nickname>.................................. display more information about a user 
 
 
 4. Usage

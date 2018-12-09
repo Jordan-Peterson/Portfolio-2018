@@ -41,6 +41,8 @@ private:
     QMap<QString,QList<QString>> chatRooms;
     QString currRoom;
     bool connected = false;
+    bool nickSet = false;
+    bool passSet = false;
 
 };
 
