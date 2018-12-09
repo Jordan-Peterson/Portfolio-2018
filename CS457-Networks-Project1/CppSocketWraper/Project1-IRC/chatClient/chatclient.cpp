@@ -30,42 +30,62 @@ void ChatClient::on_sendButton_clicked()
 {
     string msg = ui->sendEdit->text().toStdString();
     ui->sendEdit->clear();
-    if(currRoom.toStdString() != "Command Center"){
-        string header = currRoom.toStdString();
-        header = header.substr(1,header.length()-2);
-        header.append(" " + msg);
-        msg = header;
-
+    if(currRoom.toStdString() != "Command Center" && msg[0] == '/'){
+        ui->chatText->insertPlainText("!! Commands can be entered in the Command Center !!\n");
+        ui->chatText->moveCursor(QTextCursor::End);
     }
-    mySocket->sendString(msg);
-    QStringList message = QString::fromStdString(msg).split(QRegExp("\\s+"));
-
-    if(message.size() > 0){
-        if((message.at(0)).toStdString() == "/JOIN"){
-            QString channelName = "[" + message[1] + "]";
-            chatRooms[channelName].append("");
-            ui->channelList->addItem("[" + message[1] + "]");
-            QList<QListWidgetItem*> rows = ui->channelList->findItems(channelName,0);
-            on_channelList_itemClicked(rows.first());
+    else{
+        if(currRoom.toStdString() != "Command Center"){
+            string header = currRoom.toStdString();
+            header = header.substr(1,header.length()-2);
+            header.append(" " + msg);
+            msg = header;
 
         }
-        if((message.at(0)).toStdString() == "/PART"){
-            if(message.size() > 1){
-                QList<QListWidgetItem*> rows = ui->channelList->findItems("[" + message[1] + "]",0);
-                ui->channelList->takeItem(ui->channelList->row(rows.first()));
-                chatRooms.remove("[" + message[1] + "]");
+        mySocket->sendString(msg);
+        QStringList message = QString::fromStdString(msg).split(QRegExp("\\s+"));
+
+        if(message.size() > 0){
+            if((message.at(0)).toStdString() == "/JOIN" && connected == true){
+                QString channelName = "[" + message[1] + "]";
+                chatRooms[channelName].append("");
+                ui->channelList->addItem("[" + message[1] + "]");
+                QList<QListWidgetItem*> rows = ui->channelList->findItems(channelName,0);
+                on_channelList_itemClicked(rows.first());
+
             }
-        }
-        if((message.at(0)).toStdString() == "/NICK"){
-            if(message.size() > 1){
-                ui->nicknameLabel->setText("NICKNAME: <b>" + message[1]);
+            if((message.at(0)).toStdString() == "/PART"){
+                if(message.size() > 1){
+                    QList<QListWidgetItem*> rows = ui->channelList->findItems("[" + message[1] + "]",0);
+                    ui->channelList->takeItem(ui->channelList->row(rows.first()));
+                    chatRooms.remove("[" + message[1] + "]");
+                }
             }
-        }
+            if((message.at(0)).toStdString() == "/NICK"){
+                if(message.size() > 1){
+                    ui->nicknameLabel->setText("NICKNAME: <b>" + message[1]);
+                }
+            }
 
-        if((message.at(0)).toStdString() == "/SETNAME"){
-            message.removeAt(0);
+            if((message.at(0)).toStdString() == "/SETNAME"){
+                message.removeAt(0);
 
-            ui->fullnameLabel->setText("FULLNAME: <b>"+message.join(" "));
+                ui->fullnameLabel->setText("FULLNAME: <b>"+message.join(" "));
+            }
+
+            if((message.at(0)).toStdString() == "/USER"){
+                if(message.size() > 2){
+                    ui->nicknameLabel->setText("NICKNAME: <b>" + message[1]);
+                    message.removeAt(0);
+                    message.removeAt(0);
+                    ui->fullnameLabel->setText("FULLNAME: <b>" + message.join(" "));
+                }
+            }
+
+            if((message.at(0)).toStdString() == "/CONNECT"){
+                connected = true;
+            }
+
         }
     }
 
@@ -91,10 +111,14 @@ void ChatClient::handleResults(const QString& msg){
        if(message.size() > 0){
            QString room = message[0];
            QString sent = msg;
-           cout << msg.toStdString() << endl;
            if(message[0] == "[NOTICE]:"){
                 ui->serverNoticeText->insertPlainText(msg + "\n");
                 ui->serverNoticeText->moveCursor(QTextCursor::End);
+           }
+           else if(message[0] == "[KICK]:"){
+               QList<QListWidgetItem*> rows = ui->channelList->findItems("[" + message[message.length()-1] + "]",0);
+               ui->channelList->takeItem(ui->channelList->row(rows.first()));
+               chatRooms.remove("[" + message[message.length()-1] + "]");
            }
            else if(chatRooms.contains(room)){
                message.removeAt(0);

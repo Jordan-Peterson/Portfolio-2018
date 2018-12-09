@@ -2,3 +2,6 @@ nick p user false
 a a user false
 n p user false
 mike nopes user false
+jordan mypassword user false
+yesi pass user false
+nik p user false

@@ -40,6 +40,7 @@ private:
     QString path;
     QMap<QString,QList<QString>> chatRooms;
     QString currRoom;
+    bool connected = false;
 
 };
 

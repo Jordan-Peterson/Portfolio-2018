@@ -560,3 +560,188 @@
 [Sun Dec  9 05:06:37 2018]: /CONNECT
 [Sun Dec  9 05:06:39 2018]: /JOIN #g
 [Sun Dec  9 05:06:50 2018]: /NOTICE this is a notice to everyone
+[Sun Dec  9 13:11:52 2018]: /NICK jordan
+[Sun Dec  9 13:12:00 2018]: /PASS mypassword
+[Sun Dec  9 13:12:03 2018]: /CONNECT
+[Sun Dec  9 13:12:33 2018]: /USER yesi yesenia vizcaya
+[Sun Dec  9 13:12:44 2018]: /PASS pass
+[Sun Dec  9 13:12:46 2018]: /CONNECT
+[Sun Dec  9 13:12:56 2018]: /JOIN #partypeople
+[Sun Dec  9 13:13:22 2018]: /JOIN #partypeople
+[Sun Dec  9 13:13:27 2018]: #partypeople hey yesi
+[Sun Dec  9 13:13:36 2018]: #partypeople hi jordan
+[Sun Dec  9 13:13:50 2018]: /JOIN #private
+[Sun Dec  9 13:13:55 2018]: #private this message is only to me
+[Sun Dec  9 13:14:20 2018]: #partypeople /JOIN #private
+[Sun Dec  9 13:14:27 2018]: /JOIN #private
+[Sun Dec  9 13:14:32 2018]: #private hello
+[Sun Dec  9 13:14:51 2018]: /KICK jordan #private
+[Sun Dec  9 13:15:09 2018]: /MODE +o #private
+[Sun Dec  9 13:15:17 2018]: /KICK #private jordan
+[Sun Dec  9 13:15:29 2018]: #private hey
+[Sun Dec  9 13:24:01 2018]: /USER jordan jordan peterson
+[Sun Dec  9 13:24:15 2018]: /PASS mypassword
+[Sun Dec  9 13:24:17 2018]: /CONNECT
+[Sun Dec  9 13:24:43 2018]: /OPER jordan secretJP-IRC
+[Sun Dec  9 13:25:45 2018]: /NOTICE this is a cool program
+[Sun Dec  9 13:26:11 2018]: /JOIN #genral
+[Sun Dec  9 13:26:23 2018]: #genral /KICK jordan #general
+[Sun Dec  9 13:26:34 2018]: /KICK jordan #general
+[Sun Dec  9 13:28:39 2018]: /NICK jordan
+[Sun Dec  9 13:28:43 2018]: /PASS mypassword
+[Sun Dec  9 13:28:46 2018]: /CONNECT
+[Sun Dec  9 13:28:52 2018]: /JOIN #general
+[Sun Dec  9 13:28:58 2018]: #general /KICK #general jordan
+[Sun Dec  9 13:29:17 2018]: /KICK #general jordan
+[Sun Dec  9 13:32:41 2018]: /NICK nick
+[Sun Dec  9 13:32:44 2018]: /PASS p
+[Sun Dec  9 13:32:48 2018]: /CONNECT
+[Sun Dec  9 13:32:53 2018]: /JOIN #g
+[Sun Dec  9 13:33:06 2018]: #g /KICK nick #g
+[Sun Dec  9 13:33:19 2018]: /KICK nick #g
+[Sun Dec  9 13:45:08 2018]: /NICK nick
+[Sun Dec  9 13:45:10 2018]: /PASS p
+[Sun Dec  9 13:45:17 2018]: /CONNECT
+[Sun Dec  9 13:45:21 2018]: /JOIN #g
+[Sun Dec  9 13:45:32 2018]: /KICK nick #g
+[Sun Dec  9 13:46:14 2018]: /MODE 
+[Sun Dec  9 13:46:26 2018]: /MODE +o #g
+[Sun Dec  9 13:55:09 2018]: /NICK nick
+[Sun Dec  9 13:55:11 2018]: /PASS p
+[Sun Dec  9 13:55:14 2018]: /CONNECT
+[Sun Dec  9 13:55:18 2018]: /JOIN #g
+[Sun Dec  9 13:55:32 2018]: /KICK jordan #g
+[Sun Dec  9 13:56:04 2018]: /KICK nick #g
+[Sun Dec  9 14:00:07 2018]: /NICK nick
+[Sun Dec  9 14:00:15 2018]: /PASS p
+[Sun Dec  9 14:00:20 2018]: /CONNECT
+[Sun Dec  9 14:00:24 2018]: /JOIN #g
+[Sun Dec  9 14:00:38 2018]: /KICK nick #g
+[Sun Dec  9 14:01:02 2018]: /PART #g
+[Sun Dec  9 14:01:07 2018]: /JOIN #g
+[Sun Dec  9 14:01:16 2018]: /KICK nick #g
+[Sun Dec  9 14:02:24 2018]: /NICK nik
+[Sun Dec  9 14:02:27 2018]: /PASS p
+[Sun Dec  9 14:02:30 2018]: /JOIN #g
+[Sun Dec  9 14:02:43 2018]: /KICK nik #g
+[Sun Dec  9 14:02:52 2018]: /CONNECT
+[Sun Dec  9 14:06:48 2018]: /JOIN #g
+[Sun Dec  9 14:07:01 2018]: /PART #g
+[Sun Dec  9 14:07:06 2018]: /PART #g
+[Sun Dec  9 14:13:56 2018]: /JOIN #g
+[Sun Dec  9 14:14:01 2018]: /NICK
+[Sun Dec  9 14:14:04 2018]: /NICK nick
+[Sun Dec  9 14:14:07 2018]: /PASS p
+[Sun Dec  9 14:14:10 2018]: /CONNECT
+[Sun Dec  9 14:14:12 2018]: /JOIN #g
+[Sun Dec  9 14:14:15 2018]: #g heyyooo
+[Sun Dec  9 14:14:25 2018]: /WHO nick
+[Sun Dec  9 14:14:32 2018]: /WHO
+[Sun Dec  9 14:14:35 2018]: /WHOIS nick
+[Sun Dec  9 14:15:40 2018]: /SETNAME nick micheals
+[Sun Dec  9 14:15:52 2018]: /WHOIS nick
+[Sun Dec  9 14:16:02 2018]: /OPER nick secretJP-IRC
+[Sun Dec  9 14:16:12 2018]: /WALLOPS hey operator
+[Sun Dec  9 14:16:30 2018]: /KICK nick #g
+[Sun Dec  9 14:17:06 2018]: /LIST
+[Sun Dec  9 14:17:13 2018]: /JOIN #channel1
+[Sun Dec  9 14:17:18 2018]: #channel1 hello everyone
+[Sun Dec  9 14:17:25 2018]: List
+[Sun Dec  9 14:17:29 2018]: /LIST
+[Sun Dec  9 14:17:45 2018]: /AWAY sorry, i am away
+[Sun Dec  9 14:17:52 2018]: /AWAY
+[Sun Dec  9 14:18:09 2018]: /PRIVMSG nick hey nick
+[Sun Dec  9 14:18:25 2018]: /NOTICE this is a notice
+[Sun Dec  9 14:19:13 2018]: /USR nick nick michaels
+[Sun Dec  9 14:19:22 2018]: /USER nick nick michaels
+[Sun Dec  9 14:19:33 2018]: /PASS p
+[Sun Dec  9 14:19:35 2018]: /CONNECT
+[Sun Dec  9 14:19:42 2018]: /LIST
+[Sun Dec  9 14:23:53 2018]: /INVITE nick #p
+[Sun Dec  9 14:24:05 2018]: /AWAY sorry i am away
+[Sun Dec  9 14:24:23 2018]: /INVITE nick #p
+[Sun Dec  9 14:29:31 2018]: /KILL nick
+[Sun Dec  9 14:34:18 2018]: /NICK nick
+[Sun Dec  9 14:34:20 2018]: /PASS p
+[Sun Dec  9 14:34:22 2018]: /CONNECT
+[Sun Dec  9 14:34:25 2018]: /JOIN #g
+[Sun Dec  9 14:34:31 2018]: /LIST
+[Sun Dec  9 14:34:33 2018]: /ISON
+[Sun Dec  9 14:34:37 2018]: /ISON nick
+[Sun Dec  9 14:34:46 2018]: /ISON nick joe paul
+[Sun Dec  9 14:34:52 2018]: /INFO
+[Sun Dec  9 14:35:09 2018]: /INVITE nick #g
+[Sun Dec  9 14:36:38 2018]: /AWAY sorry im away, be back soon
+[Sun Dec  9 14:36:49 2018]: /MODE +a
+[Sun Dec  9 14:37:07 2018]: /AWAY
+[Sun Dec  9 14:37:15 2018]: /INVITE nick #g
+[Sun Dec  9 14:37:28 2018]: /PRIVMSG nick yo my duddddde
+[Sun Dec  9 14:37:32 2018]: /RULES
+[Sun Dec  9 14:37:41 2018]: /HELP
+[Sun Dec  9 14:38:04 2018]: /PING nick
+[Sun Dec  9 14:38:48 2018]: /VERSION
+[Sun Dec  9 14:38:53 2018]: /USERIP nick
+[Sun Dec  9 14:39:06 2018]: /TOPIC #g
+[Sun Dec  9 14:39:16 2018]: /TOPIC #g new topic
+[Sun Dec  9 14:39:20 2018]: /TOPIC #g
+[Sun Dec  9 14:39:33 2018]: /SILENCE nick
+[Sun Dec  9 14:40:06 2018]: /AWAY
+[Sun Dec  9 14:40:20 2018]: /PRIVMSG nick hey nick
+[Sun Dec  9 14:40:24 2018]: /SILENCE nick
+[Sun Dec  9 14:47:39 2018]: /TIME
+[Sun Dec  9 14:50:01 2018]: /NICK nick
+[Sun Dec  9 14:50:02 2018]: /PASS p
+[Sun Dec  9 14:50:07 2018]: /CONNECT
+[Sun Dec  9 14:50:11 2018]: /JOIN #g
+[Sun Dec  9 14:50:21 2018]: /SILENCE nick
+[Sun Dec  9 14:50:25 2018]: /SILENCE nick
+[Sun Dec  9 14:53:38 2018]: /NICK nick
+[Sun Dec  9 14:53:40 2018]: /PASS p
+[Sun Dec  9 14:53:43 2018]: /CONNECT 
+[Sun Dec  9 14:53:49 2018]: /NICK mike
+[Sun Dec  9 14:53:53 2018]: /PASS nopes
+[Sun Dec  9 14:53:57 2018]: /CONNECT
+[Sun Dec  9 14:54:06 2018]: /SILENCE mike
+[Sun Dec  9 14:54:26 2018]: /PRIVMSG nick hey nick
+[Sun Dec  9 14:54:36 2018]: /JOIN #g
+[Sun Dec  9 14:54:40 2018]: /JOIN #g
+[Sun Dec  9 14:54:42 2018]: #g hey
+[Sun Dec  9 14:54:47 2018]: #g hey
+[Sun Dec  9 14:54:58 2018]: /SILENCE mike
+[Sun Dec  9 14:57:16 2018]: /NICK nick
+[Sun Dec  9 14:57:19 2018]: /PASS p
+[Sun Dec  9 14:57:21 2018]: /CONNECT
+[Sun Dec  9 14:57:32 2018]: /PASS nopes
+[Sun Dec  9 14:57:36 2018]: /NICK mike
+[Sun Dec  9 14:57:40 2018]: /CONNECT
+[Sun Dec  9 14:57:47 2018]: /SILENCE mike
+[Sun Dec  9 14:57:55 2018]: /PRIVMSG nick hey
+[Sun Dec  9 14:58:30 2018]: /SILENCE mike
+[Sun Dec  9 15:01:52 2018]: /NICK nick
+[Sun Dec  9 15:01:55 2018]: /PASS p
+[Sun Dec  9 15:01:57 2018]: /CONNECT
+[Sun Dec  9 15:02:06 2018]: /NICK mike
+[Sun Dec  9 15:02:08 2018]: /PASS nopes
+[Sun Dec  9 15:02:10 2018]: /CONNECT
+[Sun Dec  9 15:02:16 2018]: /SILENCE nick
+[Sun Dec  9 15:02:20 2018]: /SILENCE nick
+[Sun Dec  9 15:02:31 2018]: /PRIVMSG mike hey
+[Sun Dec  9 15:03:00 2018]: /WHOIS mike
+[Sun Dec  9 15:03:46 2018]: /TIME
+[Sun Dec  9 15:03:59 2018]: /WALLOPS hey ops
+[Sun Dec  9 15:04:14 2018]: /OPER mike secretJP-IRC
+[Sun Dec  9 15:04:29 2018]: /WALLOPS hey operator
+[Sun Dec  9 15:04:47 2018]: /KILL mike
+[Sun Dec  9 15:14:20 2018]: /NICK nick
+[Sun Dec  9 15:14:23 2018]: /PASS p
+[Sun Dec  9 15:14:26 2018]: /CONNECT
+[Sun Dec  9 15:15:55 2018]: /NICK nick
+[Sun Dec  9 15:16:35 2018]: /NICK nick
+[Sun Dec  9 15:16:38 2018]: /PASS p
+[Sun Dec  9 15:16:41 2018]: /CONNECT
+[Sun Dec  9 15:16:45 2018]: /JOIN #g
+[Sun Dec  9 15:16:49 2018]: /HELP
+[Sun Dec  9 15:16:55 2018]: #g hey
+[Sun Dec  9 15:16:58 2018]: /WHO
+[Sun Dec  9 15:17:04 2018]: /WHO
+[Sun Dec  9 15:17:18 2018]: /QUIT

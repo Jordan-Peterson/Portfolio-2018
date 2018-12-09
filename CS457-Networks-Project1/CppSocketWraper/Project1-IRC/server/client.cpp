@@ -37,6 +37,7 @@ void client::removeSilenced(string name){
     for(;it != silenceList.end();it++){
         if(*it == name){
             silenceList.erase(it);
+            break;
         }
     }
 }

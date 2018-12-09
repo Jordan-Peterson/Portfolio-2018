@@ -41,7 +41,7 @@ class client{
         inline bool operator < (client b){if(nickname < b.getNick()){return true;}else{return false;}};
     
     private: 
-        string fullname;
+        string fullname = "Unkown";
         string nickname;
         string password;
         string level;

@@ -1,2 +1,2 @@
-# null, @
+#channel1 null, @
 #g null, @

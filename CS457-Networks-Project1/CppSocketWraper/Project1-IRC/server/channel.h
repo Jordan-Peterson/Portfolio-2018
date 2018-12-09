@@ -21,10 +21,12 @@ class channel{
         inline string getTopic(){return topic;};
         inline void setTopic(string tp){topic = tp;};
         void addPerms(string s);
+        inline string getPerms(){return mode;};
         inline void addOperator(string name){operators.push_back(name);};
         void removeOperator(string name);
         bool checkPerms(string username, char perm);
         void removePerms(string s);
+        vector<string> getOperators(){return operators;};
 
     private:
         string channelName;
