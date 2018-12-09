@@ -22,3 +22,31 @@ void client::removePerms(string s){
         }
     }
 }
+
+bool client::checkMode(char m){
+    for(int k = 0; k < mode.length();k++){
+        if(m == mode[k]){
+            return true;
+        }
+    }
+    return false;
+}
+
+void client::removeSilenced(string name){
+    vector<string>::iterator it = silenceList.begin();
+    for(;it != silenceList.end();it++){
+        if(*it == name){
+            silenceList.erase(it);
+        }
+    }
+}
+
+bool client::checkSilenceList(string name){
+    vector<string>::iterator it = silenceList.begin();
+    for(; it != silenceList.end();it++){
+        if(*it == name){
+            return true;
+        }
+    }
+    return false;
+}

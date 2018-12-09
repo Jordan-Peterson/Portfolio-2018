@@ -13,8 +13,9 @@ void WorkerThread::run() {
             if(message.at(0).toStdString() == "[PING]"){
                 client->sendString("/PONG " + message.at(2).toStdString());
             }
+
+            emit resultReady(QString::fromStdString(msg));
         }
 
-        emit resultReady(QString::fromStdString(msg));
     }
 }

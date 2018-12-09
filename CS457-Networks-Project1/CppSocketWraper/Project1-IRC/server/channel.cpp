@@ -62,3 +62,25 @@ void channel::removePerms(string s){
         }
     }
 }
+
+bool channel::checkPerms(string name, char perm){
+    if(perm == 'o'){
+        for(int i = 0; i < operators.size();i++){
+            if(operators[i] == name){
+                return true;
+            }
+        }
+        return false;
+    }
+    return false;
+}
+
+void channel::removeOperator(string name){
+    
+    vector<string>::iterator it = operators.begin();
+    for(; it != operators.end();it++){
+        if(*it == name){
+            operators.erase(it);
+        }
+    }
+}

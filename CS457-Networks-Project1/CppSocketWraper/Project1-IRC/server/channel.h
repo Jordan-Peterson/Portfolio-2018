@@ -21,6 +21,9 @@ class channel{
         inline string getTopic(){return topic;};
         inline void setTopic(string tp){topic = tp;};
         void addPerms(string s);
+        inline void addOperator(string name){operators.push_back(name);};
+        void removeOperator(string name);
+        bool checkPerms(string username, char perm);
         void removePerms(string s);
 
     private:
@@ -28,6 +31,7 @@ class channel{
         string password;
         string topic;
         string mode;
+        vector<string> operators;
         vector<shared_ptr<client>> clients;
 
 };

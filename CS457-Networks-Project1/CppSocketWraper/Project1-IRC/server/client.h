@@ -5,6 +5,7 @@
 #include "tcpUserSocket.h"
 
 using namespace std; 
+using std::find;
 class client{
     public:
         client(shared_ptr<tcpUserSocket> sock);
@@ -18,6 +19,9 @@ class client{
         inline void setNickSet(bool n){nickset = n;};
         inline void setPassSet(bool p){passset = p;};
         inline void setFullName(string n){fullname = n;};
+        inline void setConnect(bool c){connect = c;};
+        inline void addSilenced(string name){silenceList.push_back(name);};
+        void removeSilenced(string name);
         void addPerms(string s);
         void removePerms(string s);
         inline string getFullName(){return fullname;};
@@ -29,7 +33,10 @@ class client{
         inline bool getFirst(){return first;};
         inline bool getNickSet(){return nickset;};
         inline bool getPassSet(){return passset;};
+        inline bool getConnect(){return connect;};
         inline shared_ptr<tcpUserSocket> getSock(){return clientSocket;};
+        bool checkMode(char m);
+        bool checkSilenceList(string name);
         inline void setSock(shared_ptr<tcpUserSocket> s){clientSocket = s;};
         inline bool operator < (client b){if(nickname < b.getNick()){return true;}else{return false;}};
     
@@ -45,7 +52,9 @@ class client{
         bool first = true;
         bool nickset = false;
         bool passset = false;
+        bool connect = false;
 
+        vector<string> silenceList;
         shared_ptr<tcpUserSocket> clientSocket;
 
 };

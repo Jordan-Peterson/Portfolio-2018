@@ -35,6 +35,7 @@ class commandHandler{
         inline void setClientList(vector<vector<string>> users){clientList = users;};
         inline void setChannelList(vector<channel> ch){channelList = ch;};
         inline void setdbPath(string s){dbPath = s;};
+        bool userHasPermission(string channelName, string username, char perm);
         
     private:
         bool checkChannel(string channelName);
@@ -64,6 +65,14 @@ class commandHandler{
         bool userIpCommand(shared_ptr<client> usr, vector<string> msg);
         bool rulesCommand(shared_ptr<client> usr, vector<string> msg);
         bool helpCommand(shared_ptr<client> usr, vector<string> msg);
+        bool connectCommand(shared_ptr<client> usr, vector<string> msg);
+        bool kickCommand(shared_ptr<client> usr, vector<string> msg);
+        bool silenceCommand(shared_ptr<client> usr, vector<string> msg);
+        bool operCommand(shared_ptr<client> usr, vector<string> msg);
+        bool whoisCommand(shared_ptr<client> usr, vector<string> msg);
+        bool killCommand(shared_ptr<client> usr, vector<string> msg);
+        bool wallopsCommand(shared_ptr<client> usr, vector<string> msg);
+        bool userCommand(shared_ptr<client> usr, vector<string> msg);
 
         enum mtype {NONE,LIST,AWAY,CONNECT,DIE,HELP,INFO,INVITE,ISON,JOIN,KICK,KILL,KNOCK,MODE,NICK,NOTICE,PART,OPER,PASS,PING,PONG,PRIVMSG,QUIT,RESTART,RULES,SETNAME,SILENCE,TIME,TOPIC,USER,USERHOST,USERIP,USERS,VERSION,WALLOPS,WHO,WHOIS};
         unordered_map<string, mtype>commandMap = {{"/LIST",LIST},{"/AWAY",AWAY},{"/CONNECT",CONNECT},{"/DIE",DIE},{"/HELP",HELP},{"/INFO",INFO},{"/INVITE",INVITE},{"/ISON",ISON},{"/JOIN",JOIN},{"/KICK",KICK},{"/KILL",KILL},{"/KNOCK",KNOCK},{"/LIST",LIST},{"/MODE",MODE},{"/NICK",NICK},{"/NOTICE",NOTICE},{"/PART",PART},{"/OPER",OPER},{"/PASS",PASS},{"/PING",PING},{"/PONG",PONG},{"/PRIVMSG",PRIVMSG},{"/QUIT",QUIT},{"/RESTART",RESTART},{"/RULES",RULES},{"/SETNAME",SETNAME},{"/SILENCE",SILENCE},{"/TIME",TIME},{"/TOPIC",TOPIC},{"/USER",USER},{"/USERHOST",USERHOST},{"/USERIP",USERIP},{"/USERS",USERS},{"/VERSION",VERSION},{"/WALLOPS",WALLOPS},{"/WHO",WHO},{"/WHOIS",WHOIS}};

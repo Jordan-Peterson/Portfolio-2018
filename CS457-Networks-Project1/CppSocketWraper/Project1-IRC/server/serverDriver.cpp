@@ -102,7 +102,9 @@ int initServer(){
             istringstream buf(temp);
             std::istream_iterator<string> beg(buf), end;
             vector<string> line(beg,end);
-            channels.push_back(line);
+            if(!line.empty()){
+                channels.push_back(line);
+            }
             getline(channelsIn,temp);
         }
 
@@ -114,7 +116,9 @@ int initServer(){
             istringstream buf(temp);
             istream_iterator<string> beg(buf), end;
             vector<string> line(beg,end);
-            users.push_back(line);
+            if(!line.empty()){
+                users.push_back(line);
+            }
             getline(usersIn,temp);
         }
 

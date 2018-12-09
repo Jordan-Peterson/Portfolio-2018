@@ -91,7 +91,6 @@ void ChatClient::handleResults(const QString& msg){
        if(message.size() > 0){
            QString room = message[0];
            QString sent = msg;
-           cout << msg.toStdString() << endl;
            if(message[0] == "[NOTICE]:"){
                 ui->serverNoticeText->insertPlainText(msg + "\n");
                 ui->serverNoticeText->moveCursor(QTextCursor::End);

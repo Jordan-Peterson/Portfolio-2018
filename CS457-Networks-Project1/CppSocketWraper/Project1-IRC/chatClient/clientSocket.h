@@ -25,6 +25,7 @@ public:
     clientSocket(const clientSocket&);
     clientSocket(uint portNumber);
     clientSocket(string networkAddress, uint portNumber);
+    inline string getHost(){return address;}
     int connectToServer();
     void closeConnection();
     tuple<string,ssize_t> recvString(int bufferSize=4096,bool useMutex = true);
