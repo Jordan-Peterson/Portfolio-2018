@@ -14,6 +14,8 @@
 #include "channel.h"
 
 using namespace std;
+using std::cout;
+using std::endl;
 
 bool ready = true; 
 tcpServerSocket mysocket(0);
@@ -131,19 +133,17 @@ int initServer(){
     vector<channel> channelList;
     for(int i = 0; i < channels.size();++i){
         channel ch = channel(channels.at(i).at(0));
-        if(channels.at(i).at(channels.size()-1) != "@"){
-            ch.setPassword(channels.at(i).at(channels.size()-1));
-        }
         if(channels.at(i).size() > 3){
             string topic="";
             for(int k = 1;k < channels.at(i).size()-1;k++){
-                if(k == channels.at(i).size()-2){
+                if(k == channels.at(i).size()-1){
                     topic += channels.at(i).at(k);
                 }
                 else{
                     topic += channels.at(i).at(k) + " ";
                 }
             }
+            cout << topic << endl;
             ch.setTopic(topic);  
         }
         else{

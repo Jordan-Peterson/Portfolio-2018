@@ -193,8 +193,8 @@ Send Command:
 /WHOIS <nickname>.................................. display more information about a user 
 
 
-4. Usage
---------
+4. Usage Terminal
+-----------------
 
 1. Open the "Server" and "Client" folders in visual studio code.
 
@@ -205,3 +205,19 @@ Send Command:
 4. Press Ctr + Shift + B on the client.
 
 5. When the banner pops up and you are connected, you can start chatting and using commands.
+
+
+5. Usage GUI:
+------------
+
+1. Open "Sever" folder in visual studio code
+
+2. Open "chatClient" folder in qtCreator
+
+3. Press Ctr + Shift + b in visual studio code to run server
+
+4. Wait for server to start
+
+5. Build and run chatClient to run GUI
+
+6. When the banner pops up, you are connected and can start issuing commands

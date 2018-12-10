@@ -274,18 +274,14 @@ bool commandHandler::joinCommand(shared_ptr<client> usr, vector<string> msg){
 
 
 bool commandHandler::partCommand(shared_ptr<client> usr, vector<string> msg){
-    if(msg.size() >= 2){
+    if(msg.size() > 1){
         string channelName = msg[1];
         if(checkChannel(channelName) && channelHasClient(channelName,usr)){
             (*getChannel(channelName)).removeClient(usr);
             cout << "user " << usr->getNick() << " removed from " << channelName << endl;
             thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: You have been removed from channel: " + channelName,true);
             t1.join();
-            vector<shared_ptr<client>>::iterator clIter = (*getChannel(channelName)).getClients().begin();
-            for(;clIter != (*getChannel(channelName)).getClients().end();clIter++){
-                thread t2(&tcpUserSocket::sendString,clIter->get()->getSock(),"[Server]: "+ usr->getNick()+" has left " + channelName,true);
-                t2.join();
-            }
+            return true;
         }
         if((*getChannel(channelName)).getClients().size() == 0 && channelName != "#general" && channelName != "&random_talk"){
             removeChannel(channelName);
@@ -400,8 +396,6 @@ bool commandHandler::privmsgCommand(shared_ptr<client> usr, vector<string> msg){
         if(!getClient(toClient)->checkMode('a')){
             thread t1(&tcpUserSocket::sendString,getClient(toClient)->getSock(),"{" + usr->getNick() + "}: " + message,true);
             t1.join();
-            thread t2(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Invite to " + toClient + " has been sent!",true);
-            t2.join();
         }
         else{
             thread t2(&tcpUserSocket::sendString,usr->getSock(),"{" + toClient + "}: " + getClient(toClient)->getAwayReply(),true);
@@ -586,17 +580,17 @@ bool commandHandler::modeCommand(shared_ptr<client> usr, vector<string> msg){
         return false;
 
     }
-    else if(msg.size() > 2){
-        if(msg[2][0] == '+'){
-            msg[2].erase(msg[2].begin());
-            usr->addPerms(msg[2]);
-            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Added " + msg[2] + " modes to your account",true);
+    else if(msg.size() == 2){
+        if(msg[1][0] == '+'){
+            msg[1].erase(msg[1].begin());
+            usr->addPerms(msg[1]);
+            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Added " + msg[1] + " modes to your account",true);
             t3.join();
             return false;
         }
-        else if(msg[2][0] == '-'){
-            usr->removePerms(msg[2]);
-            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Removed " + msg[2] + " modes from your account",true);
+        else if(msg[1][0] == '-'){
+            usr->removePerms(msg[1][1]);
+            thread t3(&tcpUserSocket::sendString,usr->getSock(),"[Server]: Removed " + msg[1] + " modes from your account",true);
             t3.join();
             return false;
         }
@@ -639,13 +633,19 @@ bool commandHandler::inviteCommand(shared_ptr<client> usr, vector<string> msg){
 
 bool commandHandler::noticeCommand(shared_ptr<client> usr, vector<string> msg){
     msg.erase(msg.begin());
-    string message = convertMsgtoString(msg);
-    vector<shared_ptr<client>>::iterator clIter = clients.begin();
-    for(;clIter != clients.end();clIter++){
-        thread t1(&tcpUserSocket::sendString,clIter->get()->getSock(),"[NOTICE]: " + message,true);
-        t1.join();   
+    if(usr->checkMode('o')){
+        string message = convertMsgtoString(msg);
+        vector<shared_ptr<client>>::iterator clIter = clients.begin();
+        for(;clIter != clients.end();clIter++){
+            thread t1(&tcpUserSocket::sendString,clIter->get()->getSock(),"[NOTICE]: " + message,true);
+            t1.join();   
+        }
+        return true;
     }
-    return true;
+    else{
+        thread t1(&tcpUserSocket::sendString,usr->getSock(),"[Server]: You cannot send Notices, you are not an operator",true);
+        t1.join(); 
+    }
 }
 
 bool commandHandler::versionCommand(shared_ptr<client> usr, vector<string> msg){
@@ -718,7 +718,7 @@ bool commandHandler::connectCommand(shared_ptr<client> usr, vector<string> msg){
                 else{
                     usr->setFirst(false);
                     cout << "found user" << endl;
-                    getClient(usr->getNick())->setSock(usr->getSock());
+                    getClient(usr->getNick()) = usr;
                     
                     thread t1(&tcpUserSocket::sendString,usr->getSock(),"[CONNECTED]: Welcome back " + usr->getNick() +", enjoy your stay! ",true);
                     t1.join();
@@ -869,16 +869,13 @@ bool commandHandler::killCommand(shared_ptr<client> usr, vector<string> msg){
         shared_ptr<client> cl = getClient(msg[1]);
         if(cl != NULL){
             if(!cl->checkMode('o')){
-                thread t5(&tcpUserSocket::sendString,cl->getSock(),"[KILL]: You have been killed",true);
-                t5.join();
-                vector<string> mes;
-                mes.push_back("/QUIT");
-                quitCommand(cl,mes);
                 vector<shared_ptr<client>>::iterator clIter = clients.begin();
                 for(; clIter != clients.end();clIter++){
                     thread t4(&tcpUserSocket::sendString,clIter->get()->getSock(),"[NOTICE]: User "+ msg[1] + " has been killed",true);
                     t4.join();
                 }
+                thread t5(&tcpUserSocket::sendString,cl->getSock(),"[KILL]: You have been killed",true);
+                t5.join();
                 return true;
             }
             else{

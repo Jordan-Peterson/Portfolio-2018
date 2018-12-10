@@ -14,13 +14,15 @@ void client::addPerms(string s){
 
 }
 
-void client::removePerms(string s){
-    string::iterator sIter = s.begin();
-    for(;sIter != s.end();advance(sIter,1)){
-        if(mode.find_first_of(*sIter) != string::npos){
-            mode.erase(sIter);
+void client::removePerms(char c){
+    string::iterator mIter = mode.begin();
+    for(;mIter != mode.end();advance(mIter,1)){
+        if(*mIter == c){
+            mode.erase(mIter);
+            break;
         }
     }
+    
 }
 
 bool client::checkMode(char m){

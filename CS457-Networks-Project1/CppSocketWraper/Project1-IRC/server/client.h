@@ -23,7 +23,7 @@ class client{
         inline void addSilenced(string name){silenceList.push_back(name);};
         void removeSilenced(string name);
         void addPerms(string s);
-        void removePerms(string s);
+        void removePerms(char c);
         inline string getFullName(){return fullname;};
         inline string getNick(){return nickname;};
         inline string getPass(){return password;};

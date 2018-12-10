@@ -72,9 +72,11 @@ void ChatClient::on_sendButton_clicked()
             }
 
             if((message.at(0)).toStdString() == "/SETNAME"){
-                message.removeAt(0);
+                if(message.size() > 1){
+                    message.removeAt(0);
 
-                ui->fullnameLabel->setText("FULLNAME: <b>"+message.join(" "));
+                    ui->fullnameLabel->setText("FULLNAME: <b>"+message.join(" "));
+                }
             }
 
             if((message.at(0)).toStdString() == "/USER"){
@@ -119,9 +121,12 @@ void ChatClient::handleResults(const QString& msg){
                mySocket->sendString("/JOIN #general");
                mySocket->sendString("/JOIN &random_talk");
            }
-           if(message[0] == "[NOTICE]:"){
+           if(message[0] == "[NOTICE]:" || message[0][0] == '{'){
                 ui->serverNoticeText->insertPlainText(msg + "\n");
                 ui->serverNoticeText->moveCursor(QTextCursor::End);
+           }
+           else if(message[0] == "[KILL]:"){
+               mySocket->sendString("/QUIT");
            }
            else if(message[0] == "[KICK]:"){
                QList<QListWidgetItem*> rows = ui->channelList->findItems("[" + message[message.length()-1] + "]",0);

@@ -1,2 +1,4 @@
 #general Community room for new and experienced users, @
-&random_talk null, @
+&random_talk ranom talking, @
+#secret null, @
+#pie null, @
