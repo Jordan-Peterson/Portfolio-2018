@@ -1,0 +1,30 @@
+#ifndef HEADER
+#define HEADER
+
+using namespace std;
+
+class Class{
+
+    public:
+
+        //Var
+
+
+        //Modifiers
+
+
+        //Accessors
+
+
+    private:
+
+        //Priv-Var
+
+
+        //Priv-Modifiers
+
+
+        //Priv-Accessors
+};
+
+#endif
