@@ -13,23 +13,23 @@ class Character{
         virtual ~Character();
         
         //Accessors
-        inline const double getX() const {return this-> xPos;};
-        inline const double getY() const {return this-> yPos;};
-        inline const string getName() const {return this->name;};
-        inline const int getLevel() const {return this->level;};
-        inline const int getExp() const {return this->exp;};
-        inline const int getExpNext() const {return this->expNext;};
-        inline const int getHP() const {return this->hp;};
-        inline const int getMaxHP() const {return this->hpMax;};
-        inline const int getStanima() const {return this->stamina;};
-        inline const int getDmgMin() const {return this->physDamageMin;};
-        inline const int getDmgMax() const {return this->physDamageMax;};
-        inline const int getDef() const {return this->defence;};
-        inline const int getMana() const {return this->mana;};
-        inline const int getMaxMana() const {return this->maxMana;};
-        inline const int getMinMagicDamage() const {return this->magicDamageMin;};
-        inline const int getMaxMagicDamage() const {return this->magicDamageMax;};
-        inline const int getAccuracy() const {return this->accuracy;};
+        inline double getX() const {return this-> xPos;};
+        inline double getY() const {return this-> yPos;};
+        inline string getName() const {return this->name;};
+        inline int getLevel() const {return this->level;};
+        inline int getExp() const {return this->exp;};
+        inline int getExpNext() const {return this->expNext;};
+        inline int getHP() const {return this->hp;};
+        inline int getMaxHP() const {return this->hpMax;};
+        inline int getStanima() const {return this->stamina;};
+        inline int getDmgMin() const {return this->physDamageMin;};
+        inline int getDmgMax() const {return this->physDamageMax;};
+        inline int getDef() const {return this->defence;};
+        inline int getMana() const {return this->mana;};
+        inline int getMaxMana() const {return this->maxMana;};
+        inline int getMinMagicDamage() const {return this->magicDamageMin;};
+        inline int getMaxMagicDamage() const {return this->magicDamageMax;};
+        inline int getAccuracy() const {return this->accuracy;};
         string getAsString() const;
 
         //Modifiers
@@ -95,5 +95,4 @@ class Character{
 
 
 };
-
 #endif

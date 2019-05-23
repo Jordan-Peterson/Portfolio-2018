@@ -1,4 +1,4 @@
-#include "inventory.h"
+#include "../include/inventory.h"
 
 //=========
 //CONSTRUCT
@@ -15,14 +15,14 @@ Inventory::Inventory(const Inventory& cpy){
     this->capacity = cpy.capacity;
     this->numItem = cpy.numItem;
     this->items = new Item*[cpy.capacity];
-    for(size_t i = 0; i < cpy.numItem;i++){
+    for(int i = 0; i < cpy.numItem;i++){
         this->items[i] = cpy.items[i]->clone();
     }
     this->initialize(this->numItem);
 }
 
 Inventory::~Inventory(){
-    for(size_t i = 0; i < this->numItem;i++){
+    for(int i = 0; i < this->numItem;i++){
         delete this->items[i];
     }
     delete[] items;
@@ -48,9 +48,9 @@ void Inventory::addItem(const Item& item){
     this->items[this->numItem++] = item.clone();
 }
 
-void Inventory::removeItem(int index){
+// void Inventory::removeItem(int index){
 
-}
+// }
 
 //=========
 //ACCESSORS
@@ -58,7 +58,7 @@ void Inventory::removeItem(int index){
 
 string Inventory::getAsString() const{
     string allItems;
-    for(size_t i = 0; i < numItem; i++){
+    for(int i = 0; i < numItem; i++){
         if(i == numItem-1){
             allItems += this->items[i]->getInfo();
         }
@@ -79,7 +79,7 @@ void Inventory::expand(){
 
     Item **tempItems = new Item *[this->capacity];
 
-    for(size_t i = 0; i < this->numItem; i++){
+    for(int i = 0; i < this->numItem; i++){
         tempItems[i] = this->items[i];
     }
 
@@ -91,7 +91,7 @@ void Inventory::expand(){
 }
 
 void Inventory::initialize(const int from){
-    for(size_t i = from; i < this->capacity; i++){
+    for(int i = from; i < this->capacity; i++){
         items[i] = nullptr;
     }
 }

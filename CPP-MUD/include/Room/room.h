@@ -35,17 +35,17 @@ class Room{
 
         //Accessors
         virtual void showRoom() const;
-        inline const int getID() const {return this->roomID;};
-        inline const int getX() const {return this->xPos;};
-        inline const int getY() const {return this->yPos;};
-        inline const bool hasNorth() const {return this->north;};
-        inline const bool hasNorthEast() const {return this->northeast;};
-        inline const bool hasNorthWest() const {return this->northwest;};
-        inline const bool hasEast() const {return this->east;};
-        inline const bool hasWest() const {return this->west;};
-        inline const bool hasSouth() const {return this->south;};
-        inline const bool hasSouthEast() const {return this->southeast;};
-        inline const bool hasSouthWest() const {return this->southwest;};
+        inline int getID() const {return this->roomID;};
+        inline int getX() const {return this->xPos;};
+        inline int getY() const {return this->yPos;};
+        inline bool hasNorth() const {return this->north;};
+        inline bool hasNorthEast() const {return this->northeast;};
+        inline bool hasNorthWest() const {return this->northwest;};
+        inline bool hasEast() const {return this->east;};
+        inline bool hasWest() const {return this->west;};
+        inline bool hasSouth() const {return this->south;};
+        inline bool hasSouthEast() const {return this->southeast;};
+        inline bool hasSouthWest() const {return this->southwest;};
         const vector<int> availableDir() const;
         bool roomTaken(int x, int y) const;
 
@@ -71,5 +71,4 @@ class Room{
 
         //Priv-Accessors
 };
-
 #endif

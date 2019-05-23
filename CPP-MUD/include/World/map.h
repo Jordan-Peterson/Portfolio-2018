@@ -1,7 +1,7 @@
 #ifndef MAP_HEADER
 #define MAP_HEADER
 
-#include "Rooms/room.h"
+#include "../Room/room.h"
 #include <vector>
 #include <stdlib.h>
 #include <iostream>
@@ -43,5 +43,4 @@ class Map{
 
         //Priv-Accessors
 };
-
 #endif

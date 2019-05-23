@@ -33,5 +33,4 @@ class Weapon : public Item{
         //Priv-Accessors
 
 };
-
 #endif
