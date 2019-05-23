@@ -3,35 +3,12 @@
 //=========
 //CONSTRUCT
 //=========
-Room::Room(int id, int x, int y, string desc,bool n, bool ne, bool nw, bool e, bool w, bool s, bool se, bool sw){
-    this->north = n;
-    this->northeast = ne;
-    this->northwest = nw;
-    this->east = e;
-    this->west = w;
-    this->south = s;
-    this->southeast = se;
-    this->southwest = sw;
+Room::Room(int id, int x, int y, string desc){
     this->xPos = x;
     this->yPos = y;
     this->desc = desc;
     this->roomID = id;
 }
-
-// Room::Room(Room& r){
-//     this->roomID = r.getID();
-//     this->xPos = r.getX();
-//     this->yPos = r.getY();
-//     this->north = r.north;
-//     this->northeast = r.northeast;
-//     this->northwest = r.northwest;
-//     this->east = r.east;
-//     this->west = r.west;
-//     this->south = r.south;
-//     this->southeast = r.southeast;
-//     this->southwest = r.southwest;
-//     this->desc = r.desc;
-// }
 
 Room::~Room(){
 
@@ -40,27 +17,56 @@ Room::~Room(){
 //+++++++++
 //MODIFIERS
 //---------
+bool Room::addPath(int p){
+    if(p >=0 && p <= 7){
+        this->paths.push_back(p);
+        return true;
+    }
+    printf("failed to add path %d\n",p);
+    return false;
+}
+
+bool Room::addNeighbor(int d, int n){
+    if(n >= 0 && d <=7){
+        this->neihbors[d] = n;
+        return true;
+    }
+    printf("failed to add neighbor %d to path %d\n",n,d);
+    return false;
+}
 
 //=========
 //ACCESSORS
 //=========
 void Room::showRoom() const{
-    
+    printf("====================\n");
+    printf("RoomID: %d\n",this->roomID);
+    printf("Coords: (%d,%d)\n",this->xPos,this->yPos);
+    printf("Taken: ");
+    for(auto i: this->paths){
+        printf("%d, ",i);
+    }
+    printf("\nNeighbors: ");
+    for(auto i: this->neihbors){
+        printf("%d, ",i);
+    }
+    printf("\n===================\n");
+
 }
 
-const vector<int> Room::availableDir() const{
+const vector<int> Room::takenDir() const{
     vector<int> spaces;
-    //not efficient, but who cares
-    if(!hasNorth()){spaces.push_back(0);}
-    if(!hasEast()){spaces.push_back(1);}
-    if(!hasSouth()){spaces.push_back(2);}
-    if(!hasWest()){spaces.push_back(3);}
-    if(!hasNorthWest()){spaces.push_back(4);}
-    if(!hasNorthEast()){spaces.push_back(5);}
-    if(!hasSouthEast()){spaces.push_back(6);}
-    if(!hasSouthWest()){spaces.push_back(7);}
-    
+    spaces = this->paths;
     return spaces;
+}
+
+bool Room::hasNeighbor(int id){
+    for(int i = 0; i < 8;i++){
+        if(this->neihbors[i] == id){
+            return true;
+        }
+    }
+    return false;
 }
 
 //++++++++++++++
