@@ -35,5 +35,4 @@ class Game{
         int activeCharacter;
         string filename;
 };
-
 #endif

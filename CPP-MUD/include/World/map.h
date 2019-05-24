@@ -1,10 +1,12 @@
 #ifndef MAP_HEADER
 #define MAP_HEADER
 
-#include "Rooms/room.h"
+#include "../Room/room.h"
 #include <vector>
 #include <stdlib.h>
 #include <iostream>
+#include <algorithm>
+#include <iterator>
 
 using namespace std;
 
@@ -20,7 +22,9 @@ class Map{
 
         //Modifiers
         void generateMap(const int size);
-        vector<Room>::iterator getRoom(int x, int y);
+        vector<shared_ptr<Room>>::iterator getRoom(int x, int y);
+        int getRoomIndex (int id);
+        int getRoomIndex (int x, int y);
 
         //Accessors
         bool roomTaken(int x, int y);
@@ -36,12 +40,11 @@ class Map{
         int numHostile;
         int numPeaceful;
 
-        vector<Room> rooms;
+        vector<shared_ptr<Room>> rooms;
 
         //Priv-Modifiers
 
 
         //Priv-Accessors
 };
-
 #endif

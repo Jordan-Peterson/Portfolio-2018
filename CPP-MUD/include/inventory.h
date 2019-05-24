@@ -1,8 +1,8 @@
 #ifndef INVENTORY_HEADER
 #define INVENTORY_HEADER
 
-#include "Items/weapon.h"
-#include "Items/armor.h"
+#include "Item/weapon.h"
+#include "Item/armor.h"
 
 using namespace std;
 
@@ -16,7 +16,7 @@ class Inventory{
 
         //Modifiers
         void addItem(const Item& item);
-        void removeItem(int index);
+        //void removeItem(int index);
 
         //Accessors
         string getAsString() const;
@@ -36,5 +36,4 @@ class Inventory{
         Item **items;
 
 };
-
 #endif

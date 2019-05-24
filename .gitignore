@@ -1,2 +1,5 @@
 InfoSec-Mathematics/__pycache__/
 build-chatClient-Desktop-Debug/
+.vscode/
+*.o
+CPP-MUD/build/apps/*

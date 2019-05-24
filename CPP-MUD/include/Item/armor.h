@@ -32,5 +32,4 @@ class Armor : public Item{
 
         //Priv-Accessors
 };
-
 #endif

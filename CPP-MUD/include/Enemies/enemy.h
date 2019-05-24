@@ -51,5 +51,4 @@ class Enemy{
 
         //Priv-Accessors
 };
-
 #endif
