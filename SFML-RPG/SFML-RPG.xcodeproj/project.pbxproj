@@ -9,15 +9,18 @@
 /* Begin PBXBuildFile section */
 		D07E872422ED12A200B2BF1A /* ResourcePath.mm in Sources */ = {isa = PBXBuildFile; fileRef = D07E872322ED12A200B2BF1A /* ResourcePath.mm */; };
 		D07E872722ED12A200B2BF1A /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E872622ED12A200B2BF1A /* main.cpp */; };
-		D07E872A22ED12A200B2BF1A /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D07E872922ED12A200B2BF1A /* cute_image.jpg */; };
-		D07E872C22ED12A200B2BF1A /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = D07E872B22ED12A200B2BF1A /* nice_music.ogg */; };
-		D07E872E22ED12A200B2BF1A /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D07E872D22ED12A200B2BF1A /* sansation.ttf */; };
-		D07E873022ED12A200B2BF1A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E872F22ED12A200B2BF1A /* icon.png */; };
+		D07E872A22ED12A200B2BF1A /* cute_image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = D07E872922ED12A200B2BF1A /* cute_image.jpg */; settings = {ASSET_TAGS = (Resources, ); }; };
+		D07E872C22ED12A200B2BF1A /* nice_music.ogg in Resources */ = {isa = PBXBuildFile; fileRef = D07E872B22ED12A200B2BF1A /* nice_music.ogg */; settings = {ASSET_TAGS = (Resources, ); }; };
+		D07E872E22ED12A200B2BF1A /* sansation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D07E872D22ED12A200B2BF1A /* sansation.ttf */; settings = {ASSET_TAGS = (Resources, ); }; };
+		D07E873022ED12A200B2BF1A /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = D07E872F22ED12A200B2BF1A /* icon.png */; settings = {ASSET_TAGS = (Resources, ); }; };
 		D07E873A22ED21DB00B2BF1A /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E873822ED21DB00B2BF1A /* Game.cpp */; };
 		D07E873E22ED2D3C00B2BF1A /* State.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E873C22ED2D3C00B2BF1A /* State.cpp */; };
-		D07E874022ED2FB200B2BF1A /* window.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E873F22ED2FB200B2BF1A /* window.ini */; };
+		D07E874022ED2FB200B2BF1A /* window.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E873F22ED2FB200B2BF1A /* window.ini */; settings = {ASSET_TAGS = (Config, ); }; };
 		D07E874522ED32DC00B2BF1A /* GameState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E874322ED32DC00B2BF1A /* GameState.cpp */; };
 		D07E874922ED3C3F00B2BF1A /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E874722ED3C3F00B2BF1A /* Entity.cpp */; };
+		D07E874B22ED566F00B2BF1A /* supported_keys.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E874A22ED566F00B2BF1A /* supported_keys.ini */; settings = {ASSET_TAGS = (Config, ); }; };
+		D07E874D22ED60DE00B2BF1A /* gamestate_keybinds.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E874C22ED60DE00B2BF1A /* gamestate_keybinds.ini */; settings = {ASSET_TAGS = (Config, ); }; };
+		D07E875022ED654900B2BF1A /* mainMenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E874E22ED654900B2BF1A /* mainMenuState.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +41,10 @@
 		D07E874422ED32DC00B2BF1A /* GameState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GameState.hpp; sourceTree = "<group>"; };
 		D07E874722ED3C3F00B2BF1A /* Entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		D07E874822ED3C3F00B2BF1A /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
+		D07E874A22ED566F00B2BF1A /* supported_keys.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = supported_keys.ini; sourceTree = "<group>"; };
+		D07E874C22ED60DE00B2BF1A /* gamestate_keybinds.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = gamestate_keybinds.ini; sourceTree = "<group>"; };
+		D07E874E22ED654900B2BF1A /* mainMenuState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainMenuState.cpp; sourceTree = "<group>"; };
+		D07E874F22ED654900B2BF1A /* mainMenuState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mainMenuState.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +113,8 @@
 			isa = PBXGroup;
 			children = (
 				D07E873F22ED2FB200B2BF1A /* window.ini */,
+				D07E874A22ED566F00B2BF1A /* supported_keys.ini */,
+				D07E874C22ED60DE00B2BF1A /* gamestate_keybinds.ini */,
 			);
 			name = Config;
 			sourceTree = "<group>";
@@ -117,6 +126,8 @@
 				D07E873D22ED2D3C00B2BF1A /* State.hpp */,
 				D07E874322ED32DC00B2BF1A /* GameState.cpp */,
 				D07E874422ED32DC00B2BF1A /* GameState.hpp */,
+				D07E874E22ED654900B2BF1A /* mainMenuState.cpp */,
+				D07E874F22ED654900B2BF1A /* mainMenuState.hpp */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -157,6 +168,10 @@
 		D07E871522ED12A200B2BF1A /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				KnownAssetTags = (
+					Config,
+					Resources,
+				);
 				LastUpgradeCheck = 1030;
 				ORGANIZATIONNAME = "Jordan Peterson";
 				TargetAttributes = {
@@ -188,10 +203,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				D07E873022ED12A200B2BF1A /* icon.png in Resources */,
+				D07E874D22ED60DE00B2BF1A /* gamestate_keybinds.ini in Resources */,
 				D07E872E22ED12A200B2BF1A /* sansation.ttf in Resources */,
 				D07E874022ED2FB200B2BF1A /* window.ini in Resources */,
 				D07E872C22ED12A200B2BF1A /* nice_music.ogg in Resources */,
 				D07E872A22ED12A200B2BF1A /* cute_image.jpg in Resources */,
+				D07E874B22ED566F00B2BF1A /* supported_keys.ini in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +241,7 @@
 			files = (
 				D07E873A22ED21DB00B2BF1A /* Game.cpp in Sources */,
 				D07E874522ED32DC00B2BF1A /* GameState.cpp in Sources */,
+				D07E875022ED654900B2BF1A /* mainMenuState.cpp in Sources */,
 				D07E872722ED12A200B2BF1A /* main.cpp in Sources */,
 				D07E872422ED12A200B2BF1A /* ResourcePath.mm in Sources */,
 				D07E874922ED3C3F00B2BF1A /* Entity.cpp in Sources */,

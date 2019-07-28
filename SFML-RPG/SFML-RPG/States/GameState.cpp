@@ -13,11 +13,16 @@
 //Functions
 
 void GameState::initKeybinds(){
-    
-    this->keybinds.emplace("MOVE_LEFT", this->supportedKeys->at("A"));
-    this->keybinds.emplace("MOVE_RIGHT", this->supportedKeys->at("D"));
-    this->keybinds.emplace("MOVE_UP", this->supportedKeys->at("W"));
-    this->keybinds.emplace("MOVE_DOWN", this->supportedKeys->at("S"));
+
+    std::ifstream ifs(resourcePath() + "gamestate_keybinds.ini");
+    if(ifs.is_open()){
+        std::string key = "";
+        std::string key_set = "";
+        while(ifs >> key >> key_set){
+            this->keybinds[key] = this->supportedKeys->at(key_set);
+        }
+    }
+    ifs.close();
 }
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys) : State(window, supportedKeys){
