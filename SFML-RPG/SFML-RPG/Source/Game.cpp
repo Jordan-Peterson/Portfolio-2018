@@ -33,8 +33,17 @@ void Game::initWindow()
 
 }
 
+void Game::initKeys(){
+    
+    this->supportedkeys.emplace("Escape",sf::Keyboard::Key::Escape);
+    this->supportedkeys.emplace("A",sf::Keyboard::Key::A);
+    this->supportedkeys.emplace("D",sf::Keyboard::Key::D);
+    this->supportedkeys.emplace("W",sf::Keyboard::Key::W);
+    this->supportedkeys.emplace("S",sf::Keyboard::Key::S);
+}
+
 void Game::initStates(){
-    this->states.push(new GameState(this->window));
+    this->states.push(new GameState(this->window, &this->supportedkeys));
 }
 
 //Static Functions
@@ -43,6 +52,7 @@ void Game::initStates(){
 Game::Game()
 {
     this->initWindow();
+    this->initKeys();
     this->initStates();
 }
 
