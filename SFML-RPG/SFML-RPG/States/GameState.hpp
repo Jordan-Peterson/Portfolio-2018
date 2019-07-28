@@ -10,20 +10,23 @@
 #define GameState_hpp
 #include "State.hpp"
 
-class GameState:
+class GameState :
     public State{
-    private:
-        Entity player;
+private:
+    Entity player;
         
-    public:
-        GameState(sf::RenderWindow* window);
-        virtual ~GameState();
+    //Functions
+    void initKeybinds();
         
-        //Functions
-        void updateKeyBinds(const float& dt);
-        void update(const float& dt);
-        void render(sf::RenderTarget* tartget = nullptr);
-        void endState();
+public:
+    GameState(sf::RenderWindow* window, std::map<std::string,int>* supportedKeys);
+    virtual ~GameState();
+    
+    //Functions
+    void updateInput(const float& dt);
+    void update(const float& dt);
+    void render(sf::RenderTarget* tartget = nullptr);
+    void endState();
         
 };
 
