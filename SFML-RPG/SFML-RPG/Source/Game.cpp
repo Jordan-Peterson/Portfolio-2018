@@ -11,8 +11,8 @@
 void Game::initWindow()
 {
     //Creates SFML window using options from window.ini file
-    std::ifstream ifs("Config/window.ini");
-    
+    std::ifstream ifs(resourcePath() + "window.ini");
+
     std::string title = "None";
     sf::VideoMode window_bounds(800,600);
     unsigned framerate_limit = 120;
@@ -34,12 +34,15 @@ void Game::initWindow()
 }
 
 void Game::initKeys(){
-    
-    this->supportedkeys.emplace("Escape",sf::Keyboard::Key::Escape);
-    this->supportedkeys.emplace("A",sf::Keyboard::Key::A);
-    this->supportedkeys.emplace("D",sf::Keyboard::Key::D);
-    this->supportedkeys.emplace("W",sf::Keyboard::Key::W);
-    this->supportedkeys.emplace("S",sf::Keyboard::Key::S);
+    std::ifstream ifs(resourcePath() + "supported_keys.ini");
+    if(ifs.is_open()){
+        std::string key = "";
+        int value =0;
+        while(ifs >> key >> value){
+            this->supportedkeys[key] = value;
+        }
+    }
+    ifs.close();
 }
 
 void Game::initStates(){

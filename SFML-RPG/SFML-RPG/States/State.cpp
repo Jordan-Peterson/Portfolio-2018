@@ -24,7 +24,7 @@ const bool& State::getQuit(){
 }
 
 void State::checkForQuit(){
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE")))){
         this->quit = true;
     }
 }
