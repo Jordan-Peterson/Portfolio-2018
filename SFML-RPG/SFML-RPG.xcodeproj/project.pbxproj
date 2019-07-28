@@ -20,6 +20,7 @@
 		D07E874922ED3C3F00B2BF1A /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E874722ED3C3F00B2BF1A /* Entity.cpp */; };
 		D07E874B22ED566F00B2BF1A /* supported_keys.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E874A22ED566F00B2BF1A /* supported_keys.ini */; settings = {ASSET_TAGS = (Config, ); }; };
 		D07E874D22ED60DE00B2BF1A /* gamestate_keybinds.ini in Resources */ = {isa = PBXBuildFile; fileRef = D07E874C22ED60DE00B2BF1A /* gamestate_keybinds.ini */; settings = {ASSET_TAGS = (Config, ); }; };
+		D07E875022ED654900B2BF1A /* mainMenuState.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D07E874E22ED654900B2BF1A /* mainMenuState.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,8 @@
 		D07E874822ED3C3F00B2BF1A /* Entity.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Entity.hpp; sourceTree = "<group>"; };
 		D07E874A22ED566F00B2BF1A /* supported_keys.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = supported_keys.ini; sourceTree = "<group>"; };
 		D07E874C22ED60DE00B2BF1A /* gamestate_keybinds.ini */ = {isa = PBXFileReference; lastKnownFileType = text; path = gamestate_keybinds.ini; sourceTree = "<group>"; };
+		D07E874E22ED654900B2BF1A /* mainMenuState.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mainMenuState.cpp; sourceTree = "<group>"; };
+		D07E874F22ED654900B2BF1A /* mainMenuState.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mainMenuState.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +126,8 @@
 				D07E873D22ED2D3C00B2BF1A /* State.hpp */,
 				D07E874322ED32DC00B2BF1A /* GameState.cpp */,
 				D07E874422ED32DC00B2BF1A /* GameState.hpp */,
+				D07E874E22ED654900B2BF1A /* mainMenuState.cpp */,
+				D07E874F22ED654900B2BF1A /* mainMenuState.hpp */,
 			);
 			path = States;
 			sourceTree = "<group>";
@@ -236,6 +241,7 @@
 			files = (
 				D07E873A22ED21DB00B2BF1A /* Game.cpp in Sources */,
 				D07E874522ED32DC00B2BF1A /* GameState.cpp in Sources */,
+				D07E875022ED654900B2BF1A /* mainMenuState.cpp in Sources */,
 				D07E872722ED12A200B2BF1A /* main.cpp in Sources */,
 				D07E872422ED12A200B2BF1A /* ResourcePath.mm in Sources */,
 				D07E874922ED3C3F00B2BF1A /* Entity.cpp in Sources */,

@@ -9,7 +9,7 @@
 #ifndef Game_hpp
 #define Game_hpp
 
-#include "GameState.hpp"
+#include "MainMenuState.hpp"
 
 class Game
 {
