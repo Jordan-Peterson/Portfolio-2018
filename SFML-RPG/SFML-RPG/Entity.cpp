@@ -11,7 +11,7 @@
 Entity::Entity(){
     this->shape.setSize(sf::Vector2f(50.f,50.f));
     this->shape.setFillColor(sf::Color::White);
-    this->move_speed = 100.f;
+    this->move_speed = 1000.f;
 }
 
 Entity::~Entity(){
